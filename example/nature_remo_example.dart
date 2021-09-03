@@ -1,12 +1,18 @@
+import 'dart:io';
+
 import 'package:nature_remo/nature_remo.dart';
 import 'package:nature_remo/src/client.dart';
 
 void main() async {
-  final accessToken = '';
-  final natureRemoClient = Client(accessToken: accessToken);
-  final response = await natureRemoClient.getMe();
-  print('id=${response.id}  nickname=${response.nickname}');
+  final accessToken = Platform.environment['NATUREREMO_ACCESS_TOKEN'];
+  if (accessToken == null || accessToken.isEmpty) {
+    throw Exception('Env: NATUREREMO_ACCESS_TOKEN does not exist');
+  }
 
-  final response2 = await natureRemoClient.updateMe('updated');
-  print('id=${response2.id}  nickname=${response2.nickname}');
+  final natureRemoClient = Client(accessToken: accessToken);
+  final me = await natureRemoClient.getMe();
+  print('nickname=${me.nickname}');
+
+  final updatedMe = await natureRemoClient.updateMe('updated');
+  print('nickname=${updatedMe.nickname}');
 }
