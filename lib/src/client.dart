@@ -37,6 +37,34 @@ class Client {
     return devices;
   }
 
+  Future<Device> updateDevice(Device device) async {
+    final response = await _post('devices/${device.id}', data: {'name': device.name});
+    final updated = Device.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+    return updated;
+  }
+
+  Future deleteDevice(Device device) async {
+    await _post('devices/${device.id}/delete');
+  }
+
+  Future<Device> updateDeviceTemperatureOffset(Device device) async {
+    final response = await _post(
+      'devices/${device.id}/temperature_offset',
+      data: {'offset': device.temperatureOffset.toString()},
+    );
+    final updated = Device.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+    return updated;
+  }
+
+  Future<Device> updateDeviceHumidityOffset(Device device) async {
+    final response = await _post(
+      'devices/${device.id}/humidity_offset',
+      data: {'offset': device.humidityOffset.toString()},
+    );
+    final updated = Device.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+    return updated;
+  }
+
   Future<http.Response> _get(String path) async {
     final uri = Uri.https(_host, '/$_apiVersion/$path');
     final response = await _httpClient.get(uri, headers: {'Authorization': 'Bearer $_accessToken'});
