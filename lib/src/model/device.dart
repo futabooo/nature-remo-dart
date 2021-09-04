@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:nature_remo/src/model/sensor.dart';
 
 class Device {
