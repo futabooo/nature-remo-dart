@@ -9,6 +9,31 @@ import 'package:http/http.dart' as http;
 void main() {
   late Client natureRemoClient;
 
+  group('users', () {
+    test('getMe', () async {
+      final me = User(
+        id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+        nickname: 'string',
+      );
+
+      Future<http.Response> requestHandler(http.Request request) async {
+        final json = await File('test/data/user.json').readAsString();
+        return http.Response(json, HttpStatus.ok, headers: {
+          HttpHeaders.contentTypeHeader: 'application/json',
+        });
+      }
+
+      natureRemoClient = Client(
+        accessToken: 'accessToken',
+        httpClient: MockClient(requestHandler),
+      );
+
+      final response = await natureRemoClient.getMe();
+      expect(response.id, me.id);
+      expect(response.nickname, me.nickname);
+    });
+  });
+
   group('devices', () {
     test('getDevices', () async {
       final devices = [
