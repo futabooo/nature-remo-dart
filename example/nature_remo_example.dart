@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:nature_remo/nature_remo.dart';
-import 'package:nature_remo/src/client.dart';
 
 void main() async {
   final accessToken = Platform.environment['NATUREREMO_ACCESS_TOKEN'];
