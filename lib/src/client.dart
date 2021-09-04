@@ -25,7 +25,7 @@ class Client {
   }
 
   Future<User> updateMe(String nickname) async {
-    final response = await _post('users/me', {'nickname': nickname});
+    final response = await _post('users/me', data: {'nickname': nickname});
     final user = User.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     return user;
   }
@@ -44,7 +44,7 @@ class Client {
     return response;
   }
 
-  Future<http.Response> _post(String path, Json? data) async {
+  Future<http.Response> _post(String path, {Json? data}) async {
     final uri = Uri.https(_host, '/$_apiVersion/$path', data);
     final response = await _httpClient.post(uri, headers: {'Authorization': 'Bearer $_accessToken'});
     // TODO: add error handling
