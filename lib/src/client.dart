@@ -37,29 +37,29 @@ class Client {
     return devices;
   }
 
-  Future<Device> updateDevice(Device device) async {
-    final response = await _post('devices/${device.id}', data: {'name': device.name});
+  Future<Device> updateDevice(DeviceCore deviceCore) async {
+    final response = await _post('devices/${deviceCore.id}', data: {'name': deviceCore.name});
     final updated = Device.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     return updated;
   }
 
-  Future deleteDevice(Device device) async {
-    await _post('devices/${device.id}/delete');
+  Future deleteDevice(DeviceCore deviceCore) async {
+    await _post('devices/${deviceCore.id}/delete');
   }
 
-  Future<Device> updateDeviceTemperatureOffset(Device device) async {
+  Future<Device> updateDeviceTemperatureOffset(DeviceCore deviceCore) async {
     final response = await _post(
-      'devices/${device.id}/temperature_offset',
-      data: {'offset': device.temperatureOffset.toString()},
+      'devices/${deviceCore.id}/temperature_offset',
+      data: {'offset': deviceCore.temperatureOffset.toString()},
     );
     final updated = Device.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     return updated;
   }
 
-  Future<Device> updateDeviceHumidityOffset(Device device) async {
+  Future<Device> updateDeviceHumidityOffset(DeviceCore deviceCore) async {
     final response = await _post(
-      'devices/${device.id}/humidity_offset',
-      data: {'offset': device.humidityOffset.toString()},
+      'devices/${deviceCore.id}/humidity_offset',
+      data: {'offset': deviceCore.humidityOffset.toString()},
     );
     final updated = Device.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     return updated;

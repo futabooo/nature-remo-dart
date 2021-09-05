@@ -38,15 +38,17 @@ void main() {
     test('getDevices', () async {
       final devices = [
         Device(
-            id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-            name: 'string',
-            temperatureOffset: 0,
-            humidityOffset: 0,
-            createdAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
-            updatedAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
-            firmwareVersion: 'string',
-            macAddress: 'string',
-            serialNumber: 'string',
+            deviceCore: DeviceCore(
+              id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+              name: 'string',
+              temperatureOffset: 0,
+              humidityOffset: 0,
+              createdAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
+              updatedAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
+              firmwareVersion: 'string',
+              macAddress: 'string',
+              serialNumber: 'string',
+            ),
             newestEvents: <SensorType, SensorValue>{
               temperature: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
               humidity: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
@@ -69,8 +71,8 @@ void main() {
       final response = await natureRemoClient.getDevices();
       expect(response.length, devices.length);
 
-      final actualDevice = response.first;
-      final device = devices.first;
+      final actualDevice = response.first.deviceCore;
+      final device = devices.first.deviceCore;
       expect(actualDevice.id, device.id);
       expect(actualDevice.temperatureOffset, device.temperatureOffset);
       expect(actualDevice.humidityOffset, device.humidityOffset);
@@ -80,8 +82,8 @@ void main() {
       expect(actualDevice.macAddress, device.macAddress);
       expect(actualDevice.serialNumber, device.serialNumber);
 
-      final actualEvents = actualDevice.newestEvents;
-      final events = device.newestEvents;
+      final actualEvents = response.first.newestEvents;
+      final events = devices.first.newestEvents;
       expect(actualEvents.length, events.length);
       expect(actualEvents[temperature]?.value, events[temperature]?.value);
       expect(actualEvents[temperature]?.createdAt, events[temperature]?.createdAt);
@@ -95,15 +97,17 @@ void main() {
 
     test('updateDevice', () async {
       final device = Device(
-          id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-          name: 'string',
-          temperatureOffset: 0,
-          humidityOffset: 0,
-          createdAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
-          updatedAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
-          firmwareVersion: 'string',
-          macAddress: 'string',
-          serialNumber: 'string',
+          deviceCore: DeviceCore(
+            id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+            name: 'string',
+            temperatureOffset: 0,
+            humidityOffset: 0,
+            createdAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
+            updatedAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
+            firmwareVersion: 'string',
+            macAddress: 'string',
+            serialNumber: 'string',
+          ),
           newestEvents: <SensorType, SensorValue>{
             temperature: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
             humidity: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
@@ -123,9 +127,9 @@ void main() {
         httpClient: MockClient(requestHandler),
       );
 
-      final response = await natureRemoClient.updateDevice(device);
-      expect(response.id, device.id);
-      expect(response.name, device.name);
+      final response = await natureRemoClient.updateDevice(device.deviceCore);
+      expect(response.deviceCore.id, device.deviceCore.id);
+      expect(response.deviceCore.name, device.deviceCore.name);
     });
 
     test('deleteDevice', () async {
@@ -134,15 +138,17 @@ void main() {
 
     test('updateDeviceTemperatureOffset', () async {
       final device = Device(
-          id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-          name: 'string',
-          temperatureOffset: 0,
-          humidityOffset: 0,
-          createdAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
-          updatedAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
-          firmwareVersion: 'string',
-          macAddress: 'string',
-          serialNumber: 'string',
+          deviceCore: DeviceCore(
+            id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+            name: 'string',
+            temperatureOffset: 0,
+            humidityOffset: 0,
+            createdAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
+            updatedAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
+            firmwareVersion: 'string',
+            macAddress: 'string',
+            serialNumber: 'string',
+          ),
           newestEvents: <SensorType, SensorValue>{
             temperature: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
             humidity: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
@@ -162,22 +168,24 @@ void main() {
         httpClient: MockClient(requestHandler),
       );
 
-      final response = await natureRemoClient.updateDeviceTemperatureOffset(device);
-      expect(response.id, device.id);
+      final response = await natureRemoClient.updateDeviceTemperatureOffset(device.deviceCore);
+      expect(response.deviceCore.id, device.deviceCore.id);
       expect(response.newestEvents[temperature]?.value, device.newestEvents[temperature]?.value);
       expect(response.newestEvents[temperature]?.createdAt, device.newestEvents[temperature]?.createdAt);
     });
     test('updateDeviceHumidityOffset', () async {
       final device = Device(
-          id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-          name: 'string',
-          temperatureOffset: 0,
-          humidityOffset: 0,
-          createdAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
-          updatedAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
-          firmwareVersion: 'string',
-          macAddress: 'string',
-          serialNumber: 'string',
+          deviceCore: DeviceCore(
+            id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+            name: 'string',
+            temperatureOffset: 0,
+            humidityOffset: 0,
+            createdAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
+            updatedAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
+            firmwareVersion: 'string',
+            macAddress: 'string',
+            serialNumber: 'string',
+          ),
           newestEvents: <SensorType, SensorValue>{
             temperature: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
             humidity: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
@@ -197,8 +205,8 @@ void main() {
         httpClient: MockClient(requestHandler),
       );
 
-      final response = await natureRemoClient.updateDeviceHumidityOffset(device);
-      expect(response.id, device.id);
+      final response = await natureRemoClient.updateDeviceHumidityOffset(device.deviceCore);
+      expect(response.deviceCore.id, device.deviceCore.id);
       expect(response.newestEvents[humidity]?.value, device.newestEvents[humidity]?.value);
       expect(response.newestEvents[humidity]?.createdAt, device.newestEvents[humidity]?.createdAt);
     });

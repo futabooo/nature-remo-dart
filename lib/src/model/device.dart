@@ -1,6 +1,32 @@
 import 'package:nature_remo/src/model/sensor.dart';
 
 class Device {
+  final DeviceCore deviceCore;
+  final Map<SensorType, SensorValue> newestEvents;
+
+  Device({
+    required this.deviceCore,
+    required this.newestEvents,
+  });
+
+  factory Device.fromJson(Map<String, dynamic> json) {
+    return Device(
+      deviceCore: DeviceCore.fromJson(json),
+      newestEvents: (json['newest_events'] as Map<String, dynamic>)
+          .map((key, value) => MapEntry<SensorType, SensorValue>(key, SensorValue.fromJson(value))),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final json = deviceCore.toJson();
+    json.addAll({
+      'newest_events': newestEvents.toString(),
+    });
+    return json;
+  }
+}
+
+class DeviceCore {
   final String id;
   final String name;
   final int temperatureOffset;
@@ -10,9 +36,8 @@ class Device {
   final String firmwareVersion;
   final String macAddress;
   final String serialNumber;
-  final Map<SensorType, SensorValue> newestEvents;
 
-  Device({
+  DeviceCore({
     required this.id,
     required this.name,
     required this.temperatureOffset,
@@ -22,11 +47,10 @@ class Device {
     required this.firmwareVersion,
     required this.macAddress,
     required this.serialNumber,
-    required this.newestEvents,
   });
 
-  factory Device.fromJson(Map<String, dynamic> json) {
-    return Device(
+  factory DeviceCore.fromJson(Map<String, dynamic> json) {
+    return DeviceCore(
       id: json['id'] as String,
       name: json['name'] as String,
       temperatureOffset: json['temperature_offset'] as int,
@@ -36,8 +60,6 @@ class Device {
       firmwareVersion: json['firmware_version'] as String,
       macAddress: json['mac_address'] as String,
       serialNumber: json['serial_number'] as String,
-      newestEvents: (json['newest_events'] as Map<String, dynamic>)
-          .map((key, value) => MapEntry<SensorType, SensorValue>(key, SensorValue.fromJson(value))),
     );
   }
 
@@ -52,7 +74,6 @@ class Device {
       'firmware_version': firmwareVersion,
       'mac_address': macAddress,
       'serial_number': serialNumber,
-      'newest_events': newestEvents.toString(),
     };
   }
 }
