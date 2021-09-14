@@ -38,7 +38,7 @@ http://swagger.nature.global
 |:heavy_check_mark:|/1/devices/{device}/temperature_offset   | POST        |
 |:heavy_check_mark:|/1/devices/{device}/humidity_offset      | POST        |
 |                  |/1/detectappliance                       | POST        |
-|                  |/1/appliances                            | GET         |
+|:heavy_check_mark:|/1/appliances                            | GET         |
 |                  |/1/appliances                            | POST        |
 |                  |/1/appliance_orders                      | POST        |
 |                  |/1/appliances/{appliance}/delete         | POST        |
