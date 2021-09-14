@@ -1,0 +1,141 @@
+[
+    {
+        "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+        "device": {
+            "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "name": "string",
+            "temperature_offset": 0,
+            "humidity_offset": 0,
+            "created_at": "2021-09-08T06:10:38.923Z",
+            "updated_at": "2021-09-08T06:10:38.923Z",
+            "firmware_version": "string",
+            "mac_address": "string",
+            "serial_number": "string"
+        },
+        "model": {
+            "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+            "manufacturer": "string",
+            "remote_name": "string",
+            "name": "string",
+            "image": "string"
+        },
+        "nickname": "string",
+        "image": "string",
+        "type": "AC",
+        "settings": {
+            "temp": "string",
+            "mode": "",
+            "vol": "",
+            "dir": "",
+            "button": ""
+        },
+        "aircon": {
+            "range": {
+                "modes": {
+                    "cool": {
+                        "temp": [
+                            "string"
+                        ],
+                        "vol": [
+                            ""
+                        ],
+                        "dir": [
+                            ""
+                        ]
+                    },
+                    "warm": {
+                        "temp": [
+                            "string"
+                        ],
+                        "vol": [
+                            ""
+                        ],
+                        "dir": [
+                            ""
+                        ]
+                    },
+                    "dry": {
+                        "temp": [
+                            "string"
+                        ],
+                        "vol": [
+                            ""
+                        ],
+                        "dir": [
+                            ""
+                        ]
+                    },
+                    "blow": {
+                        "temp": [
+                            "string"
+                        ],
+                        "vol": [
+                            ""
+                        ],
+                        "dir": [
+                            ""
+                        ]
+                    },
+                    "auto": {
+                        "temp": [
+                            "string"
+                        ],
+                        "vol": [
+                            ""
+                        ],
+                        "dir": [
+                            ""
+                        ]
+                    }
+                },
+                "fixedButtons": [
+                    ""
+                ]
+            },
+            "tempUnit": ""
+        },
+        "signals": [
+            {
+                "id": "3fa85f64-5717-4562-b3fc-2c963f66afa6",
+                "name": "string",
+                "image": "string"
+            }
+        ],
+        "tv": {
+            "state": {
+                "input": "t"
+            },
+            "buttons": [
+                {
+                    "name": "string",
+                    "image": "string",
+                    "label": "string"
+                }
+            ]
+        },
+        "light": {
+            "state": {
+                "brightness": "string",
+                "power": "on",
+                "last_button": "string"
+            },
+            "buttons": [
+                {
+                    "name": "string",
+                    "image": "string",
+                    "label": "string"
+                }
+            ]
+        },
+        "smart_meter": {
+            "echonetlite_properties": [
+                {
+                    "name": "string",
+                    "epc": 0,
+                    "val": "string",
+                    "updated_at": "2021-09-08T06:10:38.923Z"
+                }
+            ]
+        }
+    }
+]

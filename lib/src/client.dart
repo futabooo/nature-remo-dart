@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'package:nature_remo/src/model/appliance.dart';
 import 'package:nature_remo/src/model/device.dart';
 import 'package:nature_remo/src/model/user.dart';
 
@@ -63,6 +64,13 @@ class Client {
     );
     final updated = Device.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     return updated;
+  }
+
+  Future<List<Appliance>> getAppliances() async {
+    final response = await _get('appliances');
+    final json = jsonDecode(utf8.decode(response.bodyBytes)) as Iterable;
+    final appliances = List<Appliance>.from(json.map((e) => Appliance.fromJson(e)));
+    return appliances;
   }
 
   Future<http.Response> _get(String path) async {
