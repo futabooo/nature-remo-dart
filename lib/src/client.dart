@@ -1,8 +1,10 @@
 import 'dart:convert';
+import 'dart:html';
 
 import 'package:http/http.dart' as http;
 import 'package:nature_remo/src/model/appliance.dart';
 import 'package:nature_remo/src/model/device.dart';
+import 'package:nature_remo/src/model/nature_remo_exception.dart';
 import 'package:nature_remo/src/model/user.dart';
 
 typedef Json = Map<String, dynamic>;
@@ -76,14 +78,18 @@ class Client {
   Future<http.Response> _get(String path) async {
     final uri = Uri.https(_host, '/$_apiVersion/$path');
     final response = await _httpClient.get(uri, headers: {'Authorization': 'Bearer $_accessToken'});
-    // TODO: add error handling
+    if (!(response.statusCode > HttpStatus.ok && response.statusCode < HttpStatus.multipleChoices)) {
+      throw NatureRemoException(httpStatusCode: response.statusCode, message: response.body);
+    }
     return response;
   }
 
   Future<http.Response> _post(String path, {Json? data}) async {
     final uri = Uri.https(_host, '/$_apiVersion/$path', data);
     final response = await _httpClient.post(uri, headers: {'Authorization': 'Bearer $_accessToken'});
-    // TODO: add error handling
+    if (!(response.statusCode > HttpStatus.ok && response.statusCode < HttpStatus.multipleChoices)) {
+      throw NatureRemoException(httpStatusCode: response.statusCode, message: response.body);
+    }
     return response;
   }
 }
