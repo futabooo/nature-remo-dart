@@ -1,10 +1,10 @@
 import 'dart:convert';
-import 'dart:html';
-
+import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:nature_remo/src/model/appliance.dart';
 import 'package:nature_remo/src/model/device.dart';
 import 'package:nature_remo/src/model/nature_remo_exception.dart';
+import 'package:nature_remo/src/model/rate_limit.dart';
 import 'package:nature_remo/src/model/user.dart';
 
 typedef Json = Map<String, dynamic>;
@@ -16,6 +16,9 @@ class Client {
   final String _accessToken;
 
   final http.Client _httpClient;
+
+  RateLimit? _lastRateLimit;
+  RateLimit? get lastRateLimit => _lastRateLimit;
 
   Client({required String accessToken, http.Client? httpClient})
       : _accessToken = accessToken,
@@ -78,7 +81,8 @@ class Client {
   Future<http.Response> _get(String path) async {
     final uri = Uri.https(_host, '/$_apiVersion/$path');
     final response = await _httpClient.get(uri, headers: {'Authorization': 'Bearer $_accessToken'});
-    if (!(response.statusCode > HttpStatus.ok && response.statusCode < HttpStatus.multipleChoices)) {
+    _lastRateLimit = _rateLimitFromHeader(response.headers);
+    if (!(response.statusCode >= HttpStatus.ok && response.statusCode < HttpStatus.multipleChoices)) {
       throw NatureRemoException(httpStatusCode: response.statusCode, message: response.body);
     }
     return response;
@@ -87,9 +91,33 @@ class Client {
   Future<http.Response> _post(String path, {Json? data}) async {
     final uri = Uri.https(_host, '/$_apiVersion/$path', data);
     final response = await _httpClient.post(uri, headers: {'Authorization': 'Bearer $_accessToken'});
-    if (!(response.statusCode > HttpStatus.ok && response.statusCode < HttpStatus.multipleChoices)) {
+    _lastRateLimit = _rateLimitFromHeader(response.headers);
+    if (!(response.statusCode >= HttpStatus.ok && response.statusCode < HttpStatus.multipleChoices)) {
       throw NatureRemoException(httpStatusCode: response.statusCode, message: response.body);
     }
     return response;
+  }
+
+  RateLimit _rateLimitFromHeader(Map<String, String> headers) {
+    final limitString = headers['x-rate-limit-limit'] ?? '';
+    if (limitString.isEmpty) {
+      throw Exception('Invalid headers, x-rate-limit-limit is not exists');
+    }
+
+    final resetString = headers['x-rate-limit-reset'] ?? '';
+    if (resetString.isEmpty) {
+      throw Exception('Invalid headers, x-rate-limit-reset is not exists');
+    }
+
+    final remainingString = headers['x-rate-limit-remaining'] ?? '';
+    if (remainingString.isEmpty) {
+      throw Exception('Invalid headers, x-rate-limit-remaining is not exists');
+    }
+
+    return RateLimit(
+      limit: int.parse(limitString),
+      reset: DateTime.fromMillisecondsSinceEpoch(int.parse(resetString) * 1000),
+      remaining: int.parse(remainingString),
+    );
   }
 }

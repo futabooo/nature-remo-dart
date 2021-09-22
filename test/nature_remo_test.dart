@@ -392,4 +392,28 @@ void main() {
       expect(actualEchonetLiteProperty.updatedAt, echonetLiteProperty.updatedAt);
     });
   });
+
+  group('headers', () {
+    test('correct headers', () async {
+      Future<http.Response> requestHandler(http.Request request) async {
+        final json = await File('test/data/user.json').readAsString();
+        return http.Response(json, HttpStatus.ok, headers: <String, String>{
+          HttpHeaders.contentTypeHeader: 'application/json',
+          'x-rate-limit-limit': '30',
+          'x-rate-limit-remaining': '29',
+          'x-rate-limit-reset': '1631972400',
+        });
+      }
+
+      natureRemoClient = Client(
+        accessToken: 'accessToken',
+        httpClient: MockClient(requestHandler),
+      );
+
+      final response = await natureRemoClient.getMe();
+      expect(natureRemoClient.lastRateLimit?.limit, 30);
+      expect(natureRemoClient.lastRateLimit?.remaining, 29);
+      expect(natureRemoClient.lastRateLimit?.reset, DateTime.parse('2021-09-18 22:40:00.000'));
+    });
+  });
 }

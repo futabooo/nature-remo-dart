@@ -7,6 +7,8 @@ export 'src/model/button.dart';
 export 'src/model/device.dart';
 export 'src/model/image.dart';
 export 'src/model/light.dart';
+export 'src/model/nature_remo_exception.dart';
+export 'src/model/rate_limit.dart';
 export 'src/model/sensor.dart';
 export 'src/model/signal.dart';
 export 'src/model/smart_meter.dart';
