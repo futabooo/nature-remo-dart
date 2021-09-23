@@ -329,13 +329,13 @@ void main() {
       expect(actualDevice.macAddress, device.macAddress);
       expect(actualDevice.serialNumber, device.serialNumber);
 
-      final actualModle = actualAppliance.model;
+      final actualModel = actualAppliance.model;
       final model = appliance.model;
-      expect(actualModle.id, model.id);
-      expect(actualModle.manufacturer, model.manufacturer);
-      expect(actualModle.remoteName, model.remoteName);
-      expect(actualModle.name, model.name);
-      expect(actualModle.image, model.image);
+      expect(actualModel.id, model.id);
+      expect(actualModel.manufacturer, model.manufacturer);
+      expect(actualModel.remoteName, model.remoteName);
+      expect(actualModel.name, model.name);
+      expect(actualModel.image, model.image);
 
       final actualSetting = actualAppliance.airConSetting;
       final setting = appliance.airConSetting;
