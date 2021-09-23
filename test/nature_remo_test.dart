@@ -431,7 +431,7 @@ void main() {
       final response = await natureRemoClient.getMe();
       expect(natureRemoClient.lastRateLimit?.limit, 30);
       expect(natureRemoClient.lastRateLimit?.remaining, 29);
-      expect(natureRemoClient.lastRateLimit?.reset, DateTime.parse('2021-09-18 22:40:00.000'));
+      expect(natureRemoClient.lastRateLimit?.reset, DateTime.parse('2021-09-18 13:40:00.000Z'));
     });
   });
 }
