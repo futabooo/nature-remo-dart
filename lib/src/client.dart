@@ -116,7 +116,7 @@ class Client {
 
     return RateLimit(
       limit: int.parse(limitString),
-      reset: DateTime.fromMillisecondsSinceEpoch(int.parse(resetString) * 1000),
+      reset: DateTime.fromMillisecondsSinceEpoch(int.parse(resetString) * 1000, isUtc: true),
       remaining: int.parse(remainingString),
     );
   }
