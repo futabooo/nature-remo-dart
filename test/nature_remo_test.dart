@@ -25,8 +25,11 @@ void main() {
 
       Future<http.Response> requestHandler(http.Request request) async {
         final json = await File('test/data/user.json').readAsString();
-        return http.Response(json, HttpStatus.ok, headers: {
+        return http.Response(json, HttpStatus.ok, headers: <String, String>{
           HttpHeaders.contentTypeHeader: 'application/json',
+          'x-rate-limit-limit': '30',
+          'x-rate-limit-remaining': '29',
+          'x-rate-limit-reset': '1631972400',
         });
       }
 
@@ -65,8 +68,11 @@ void main() {
       ];
       Future<http.Response> requestHandler(http.Request request) async {
         final json = await File('test/data/devices.json').readAsString();
-        return http.Response(json, HttpStatus.ok, headers: {
+        return http.Response(json, HttpStatus.ok, headers: <String, String>{
           HttpHeaders.contentTypeHeader: 'application/json',
+          'x-rate-limit-limit': '30',
+          'x-rate-limit-remaining': '29',
+          'x-rate-limit-reset': '1631972400',
         });
       }
 
@@ -124,8 +130,11 @@ void main() {
 
       Future<http.Response> requestHandler(http.Request request) async {
         final json = await File('test/data/device.json').readAsString();
-        return http.Response(json, HttpStatus.ok, headers: {
+        return http.Response(json, HttpStatus.ok, headers: <String, String>{
           HttpHeaders.contentTypeHeader: 'application/json',
+          'x-rate-limit-limit': '30',
+          'x-rate-limit-remaining': '29',
+          'x-rate-limit-reset': '1631972400',
         });
       }
 
@@ -165,8 +174,11 @@ void main() {
 
       Future<http.Response> requestHandler(http.Request request) async {
         final json = await File('test/data/device.json').readAsString();
-        return http.Response(json, HttpStatus.ok, headers: {
+        return http.Response(json, HttpStatus.ok, headers: <String, String>{
           HttpHeaders.contentTypeHeader: 'application/json',
+          'x-rate-limit-limit': '30',
+          'x-rate-limit-remaining': '29',
+          'x-rate-limit-reset': '1631972400',
         });
       }
 
@@ -202,8 +214,11 @@ void main() {
 
       Future<http.Response> requestHandler(http.Request request) async {
         final json = await File('test/data/device.json').readAsString();
-        return http.Response(json, HttpStatus.ok, headers: {
+        return http.Response(json, HttpStatus.ok, headers: <String, String>{
           HttpHeaders.contentTypeHeader: 'application/json',
+          'x-rate-limit-limit': '30',
+          'x-rate-limit-remaining': '29',
+          'x-rate-limit-reset': '1631972400',
         });
       }
 
@@ -297,8 +312,11 @@ void main() {
       ];
       Future<http.Response> requestHandler(http.Request request) async {
         final json = await File('test/data/appliance.json').readAsString();
-        return http.Response(json, HttpStatus.ok, headers: {
+        return http.Response(json, HttpStatus.ok, headers: <String, String>{
           HttpHeaders.contentTypeHeader: 'application/json',
+          'x-rate-limit-limit': '30',
+          'x-rate-limit-remaining': '29',
+          'x-rate-limit-reset': '1631972400',
         });
       }
 
