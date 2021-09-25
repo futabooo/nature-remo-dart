@@ -1,6 +1,6 @@
 name: nature_remo
-description: A starting point for Dart libraries or applications.
-version: 1.0.0
+description: Nature Remo API Client.
+version: 0.1.0
 homepage: https://github.com/futabooo/nature-remo-dart
 
 environment:
