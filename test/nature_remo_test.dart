@@ -1,15 +1,17 @@
 import 'dart:io';
 
 import 'package:http/testing.dart';
-import 'package:nature_remo/nature_remo.dart';
+import 'package:nature_remo/src/client.dart';
 import 'package:nature_remo/src/model/aircon.dart';
 import 'package:nature_remo/src/model/appliance.dart';
 import 'package:nature_remo/src/model/button.dart';
+import 'package:nature_remo/src/model/device.dart';
 import 'package:nature_remo/src/model/light.dart';
+import 'package:nature_remo/src/model/sensor.dart';
 import 'package:nature_remo/src/model/signal.dart';
 import 'package:nature_remo/src/model/smart_meter.dart';
 import 'package:nature_remo/src/model/tv.dart';
-import 'package:test/scaffolding.dart';
+import 'package:nature_remo/src/model/user.dart';
 import 'package:test/test.dart';
 import 'package:http/http.dart' as http;
 
