@@ -39,11 +39,11 @@ http://swagger.nature.global
 |:heavy_check_mark:|/1/devices/{device}/humidity_offset      | POST        |
 |                  |/1/detectappliance                       | POST        |
 |:heavy_check_mark:|/1/appliances                            | GET         |
-|                  |/1/appliances                            | POST        |
+|:heavy_check_mark:|/1/appliances                            | POST        |
 |                  |/1/appliance_orders                      | POST        |
 |                  |/1/appliances/{appliance}/delete         | POST        |
 |                  |/1/appliances/{appliance}                | POST        |
-|                  |/1/appliances/{appliance}/aircon_settings| POST        |
+|:heavy_check_mark:|/1/appliances/{appliance}/aircon_settings| POST        |
 |                  |/1/appliances/{appliance}/tv             | POST        |
 |                  |/1/appliances/{appliance}/light          | POST        |
 |                  |/1/appliances/{appliance}/signals        | GET         |
