@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:nature_remo/src/model/aircon.dart';
 import 'package:nature_remo/src/model/appliance.dart';
 import 'package:nature_remo/src/model/device.dart';
 import 'package:nature_remo/src/model/nature_remo_exception.dart';
@@ -76,6 +77,51 @@ class Client {
     final json = jsonDecode(utf8.decode(response.bodyBytes)) as Iterable;
     final appliances = List<Appliance>.from(json.map((e) => Appliance.fromJson(e)));
     return appliances;
+  }
+
+  Future<Appliance> registerAppliance({
+    required String nickname,
+    required ApplianceType type,
+    required Device device,
+    required String image,
+    String? model,
+  }) async {
+    final requestData = {
+      'nickname': nickname,
+      'model_type': type.text,
+      'device': device.deviceCore.id,
+      'image': image,
+    };
+    if (model != null) {
+      requestData.addAll({'model': model});
+    }
+    final response = await _post(
+      'appliances',
+      data: requestData,
+    );
+    final json = jsonDecode(utf8.decode(response.bodyBytes));
+    final appliance = Appliance.fromJson(json);
+    return appliance;
+  }
+
+  Future updateAirConSettings({
+    required Appliance appliance,
+    required AirConSetting airConSetting,
+  }) async {
+    final requestDate = {
+      'temperature': airConSetting.temperature,
+      'operation_mode': airConSetting.mode.text,
+      'air_volume': airConSetting.airVolume.text,
+      'air_direction': airConSetting.airDirection.text,
+      'button': airConSetting.acButton.text,
+    };
+    final response = await _post(
+      'appliances/$appliance.id/aircon_settings',
+      data: requestDate,
+    );
+    final json = jsonDecode(utf8.decode(response.bodyBytes));
+    final updated = AirConSetting.fromJson(json);
+    return updated;
   }
 
   Future<http.Response> _get(String path) async {
