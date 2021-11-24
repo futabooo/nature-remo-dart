@@ -3,7 +3,9 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:nature_remo/src/model/aircon.dart';
 import 'package:nature_remo/src/model/appliance.dart';
+import 'package:nature_remo/src/model/appliance_model_and_param.dart';
 import 'package:nature_remo/src/model/device.dart';
+import 'package:nature_remo/src/model/infrared_signal.dart';
 import 'package:nature_remo/src/model/nature_remo_exception.dart';
 import 'package:nature_remo/src/model/rate_limit.dart';
 import 'package:nature_remo/src/model/user.dart';
@@ -102,6 +104,17 @@ class Client {
     final json = jsonDecode(utf8.decode(response.bodyBytes));
     final appliance = Appliance.fromJson(json);
     return appliance;
+  }
+
+  Future<List<ApplianceModelAndParam>> detectAppliance({
+    required InfraredSignal infraredSignal,
+  }) async {
+    final requestData = {'message': jsonEncode(infraredSignal)};
+    final response = await _post('detectappliance', data: requestData);
+    final json = jsonDecode(utf8.decode(response.bodyBytes));
+    final applianceModelAndParams =
+        List<ApplianceModelAndParam>.from(json.map((e) => ApplianceModelAndParam.fromJson(e)));
+    return applianceModelAndParams;
   }
 
   Future updateAirConSettings({
