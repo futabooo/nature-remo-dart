@@ -4,11 +4,13 @@ import 'package:http/http.dart' as http;
 import 'package:nature_remo/src/model/aircon.dart';
 import 'package:nature_remo/src/model/appliance.dart';
 import 'package:nature_remo/src/model/appliance_model_and_param.dart';
+import 'package:nature_remo/src/model/button.dart';
 import 'package:nature_remo/src/model/device.dart';
 import 'package:nature_remo/src/model/infrared_signal.dart';
 import 'package:nature_remo/src/model/nature_remo_exception.dart';
 import 'package:nature_remo/src/model/rate_limit.dart';
 import 'package:nature_remo/src/model/image.dart';
+import 'package:nature_remo/src/model/tv.dart';
 import 'package:nature_remo/src/model/user.dart';
 
 typedef Json = Map<String, dynamic>;
@@ -135,7 +137,7 @@ class Client {
     await _post('appliances/${appliance.id}/delete');
   }
 
-  Future updateAppliance({
+  Future<Appliance> updateAppliance({
     required Appliance appliance,
     required Image image,
     required String nickname,
@@ -165,6 +167,18 @@ class Client {
     final json = jsonDecode(utf8.decode(response.bodyBytes));
     final updated = AirConSetting.fromJson(json);
     return updated;
+  }
+
+  /// Send tv infrared signal
+  Future<TvState> sendTvInfraredSignal({
+    required Appliance appliance,
+    required Button button,
+  }) async {
+    final requestData = {'button': button.name};
+    final response = await _post('appliances/${appliance.id}/tv', data: requestData);
+    final json = jsonDecode(utf8.decode(response.bodyBytes));
+    final tvState = TvState.fromJson(json);
+    return tvState;
   }
 
   Future<http.Response> _get(String path) async {

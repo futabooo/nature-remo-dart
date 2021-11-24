@@ -44,7 +44,7 @@ http://swagger.nature.global
 |:heavy_check_mark:|/1/appliances/{appliance}/delete         | POST        |
 |:heavy_check_mark:|/1/appliances/{appliance}                | POST        |
 |:heavy_check_mark:|/1/appliances/{appliance}/aircon_settings| POST        |
-|                  |/1/appliances/{appliance}/tv             | POST        |
+|:heavy_check_mark:|/1/appliances/{appliance}/tv             | POST        |
 |                  |/1/appliances/{appliance}/light          | POST        |
 |                  |/1/appliances/{appliance}/signals        | GET         |
 |                  |/1/appliances/{appliance}/signals        | POST        |
