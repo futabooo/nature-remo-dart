@@ -117,6 +117,17 @@ class Client {
     return applianceModelAndParams;
   }
 
+  /// Reorder appliances
+  Future<List<Appliance>> applianceOrders({
+    required List<Appliance> appliances,
+  }) async {
+    final requestData = {'appliances': appliances.map((appliance) => appliance.id)};
+    final response = await _post('appliance_orders', data: requestData);
+    final json = jsonDecode(utf8.decode(response.bodyBytes));
+    final reOrderdAppliances = List<Appliance>.from(json.map((e) => Appliance.fromJson(e)));
+    return reOrderdAppliances;
+  }
+
   Future updateAirConSettings({
     required Appliance appliance,
     required AirConSetting airConSetting,

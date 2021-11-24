@@ -40,7 +40,7 @@ http://swagger.nature.global
 |:heavy_check_mark:|/1/detectappliance                       | POST        |
 |:heavy_check_mark:|/1/appliances                            | GET         |
 |:heavy_check_mark:|/1/appliances                            | POST        |
-|                  |/1/appliance_orders                      | POST        |
+|:heavy_check_mark:|/1/appliance_orders                      | POST        |
 |                  |/1/appliances/{appliance}/delete         | POST        |
 |                  |/1/appliances/{appliance}                | POST        |
 |:heavy_check_mark:|/1/appliances/{appliance}/aircon_settings| POST        |
