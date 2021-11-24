@@ -11,6 +11,7 @@ import 'package:nature_remo/src/model/light.dart';
 import 'package:nature_remo/src/model/nature_remo_exception.dart';
 import 'package:nature_remo/src/model/rate_limit.dart';
 import 'package:nature_remo/src/model/image.dart';
+import 'package:nature_remo/src/model/signal.dart';
 import 'package:nature_remo/src/model/tv.dart';
 import 'package:nature_remo/src/model/user.dart';
 
@@ -190,6 +191,15 @@ class Client {
     final json = jsonDecode(utf8.decode(response.bodyBytes));
     final lightState = LightState.fromJson(json);
     return lightState;
+  }
+
+  Future<List<Signal>> getSignals({
+    required Appliance appliance,
+  }) async {
+    final response = await _get('appliances/${appliance.id}/signals');
+    final json = jsonDecode(utf8.decode(response.bodyBytes));
+    final signals = List<Signal>.from(json.map((e) => Signal.fromJson(e)));
+    return signals;
   }
 
   Future<http.Response> _get(String path) async {
