@@ -215,6 +215,17 @@ class Client {
     return signal;
   }
 
+  Future<List<Signal>> signalOrders({
+    required Appliance appliance,
+    required List<Signal> signals,
+  }) async {
+    final requestData = {'signals': signals.map((signal) => signal.id)};
+    final response = await _post('appliances/${appliance.id}/signal_orders', data: requestData);
+    final json = jsonDecode(utf8.decode(response.bodyBytes));
+    final reOrderdsignals = List<Signal>.from(json.map((e) => Signal.fromJson(e)));
+    return reOrderdsignals;
+  }
+
   Future<http.Response> _get(String path) async {
     final uri = Uri.https(_host, '/$_apiVersion/$path');
     final response = await _httpClient.get(uri, headers: {'Authorization': 'Bearer $_accessToken'});
