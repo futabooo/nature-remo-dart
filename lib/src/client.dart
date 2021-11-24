@@ -244,6 +244,12 @@ class Client {
     await _post('signals/${signal.id}/delete');
   }
 
+  Future sendSignal({
+    required Signal signal,
+  }) async {
+    await _post('signals/${signal.id}/send');
+  }
+
   Future<http.Response> _get(String path) async {
     final uri = Uri.https(_host, '/$_apiVersion/$path');
     final response = await _httpClient.get(uri, headers: {'Authorization': 'Bearer $_accessToken'});
