@@ -159,7 +159,7 @@ class Client {
       'button': airConSetting.acButton.text,
     };
     final response = await _post(
-      'appliances/$appliance.id/aircon_settings',
+      'appliances/${appliance.id}/aircon_settings',
       data: requestDate,
     );
     final json = jsonDecode(utf8.decode(response.bodyBytes));
