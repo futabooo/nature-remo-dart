@@ -8,6 +8,7 @@ import 'package:nature_remo/src/model/device.dart';
 import 'package:nature_remo/src/model/infrared_signal.dart';
 import 'package:nature_remo/src/model/nature_remo_exception.dart';
 import 'package:nature_remo/src/model/rate_limit.dart';
+import 'package:nature_remo/src/model/image.dart';
 import 'package:nature_remo/src/model/user.dart';
 
 typedef Json = Map<String, dynamic>;
@@ -132,6 +133,18 @@ class Client {
     required Appliance appliance,
   }) async {
     await _post('appliances/${appliance.id}/delete');
+  }
+
+  Future updateAppliance({
+    required Appliance appliance,
+    required Image image,
+    required String nickname,
+  }) async {
+    final requestData = {'image': image, 'nickname': nickname};
+    final response = await _post('appliances/${appliance.id}', data: requestData);
+    final json = jsonDecode(utf8.decode(response.bodyBytes));
+    final updated = Appliance.fromJson(json);
+    return updated;
   }
 
   Future updateAirConSettings({
