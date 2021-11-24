@@ -149,7 +149,7 @@ class Client {
     return updated;
   }
 
-  Future updateAirConSettings({
+  Future<AirConSetting> updateAirConSettings({
     required Appliance appliance,
     required AirConSetting airConSetting,
   }) async {
