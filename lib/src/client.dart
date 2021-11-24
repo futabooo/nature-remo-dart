@@ -128,6 +128,12 @@ class Client {
     return reOrderdAppliances;
   }
 
+  Future deleteAppliance({
+    required Appliance appliance,
+  }) async {
+    await _post('appliances/${appliance.id}/delete');
+  }
+
   Future updateAirConSettings({
     required Appliance appliance,
     required AirConSetting airConSetting,
