@@ -7,6 +7,7 @@ import 'package:nature_remo/src/model/appliance_model_and_param.dart';
 import 'package:nature_remo/src/model/button.dart';
 import 'package:nature_remo/src/model/device.dart';
 import 'package:nature_remo/src/model/infrared_signal.dart';
+import 'package:nature_remo/src/model/light.dart';
 import 'package:nature_remo/src/model/nature_remo_exception.dart';
 import 'package:nature_remo/src/model/rate_limit.dart';
 import 'package:nature_remo/src/model/image.dart';
@@ -169,7 +170,6 @@ class Client {
     return updated;
   }
 
-  /// Send tv infrared signal
   Future<TvState> sendTvInfraredSignal({
     required Appliance appliance,
     required Button button,
@@ -179,6 +179,17 @@ class Client {
     final json = jsonDecode(utf8.decode(response.bodyBytes));
     final tvState = TvState.fromJson(json);
     return tvState;
+  }
+
+  Future<LightState> sendLightInfraredSignal({
+    required Appliance appliance,
+    required Button button,
+  }) async {
+    final requestData = {'button': button.name};
+    final response = await _post('appliances/${appliance.id}/light', data: requestData);
+    final json = jsonDecode(utf8.decode(response.bodyBytes));
+    final lightState = LightState.fromJson(json);
+    return lightState;
   }
 
   Future<http.Response> _get(String path) async {
