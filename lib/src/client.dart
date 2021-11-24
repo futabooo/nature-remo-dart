@@ -202,6 +202,19 @@ class Client {
     return signals;
   }
 
+  Future<Signal> registerSignal({
+    required Appliance appliance,
+    required InfraredSignal infraredSignal,
+    required Image image,
+    required String name,
+  }) async {
+    final requestData = {'message': jsonEncode(infraredSignal), 'image': image, 'name': name};
+    final response = await _post('appliances/${appliance.id}/signals', data: requestData);
+    final json = jsonDecode(utf8.decode(response.bodyBytes));
+    final signal = Signal.fromJson(json);
+    return signal;
+  }
+
   Future<http.Response> _get(String path) async {
     final uri = Uri.https(_host, '/$_apiVersion/$path');
     final response = await _httpClient.get(uri, headers: {'Authorization': 'Bearer $_accessToken'});
