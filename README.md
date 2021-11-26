@@ -1,4 +1,5 @@
 # Nature Remo API Client for Dart
+![Dart CI](https://github.com/futabooo/nature-remo-dart/workflows/Dart%20CI/badge.svg)
 
 ## Usage
 
@@ -52,6 +53,15 @@ http://swagger.nature.global
 |:heavy_check_mark:|/1/signals/{signal}                      | POST        |
 |:heavy_check_mark:|/1/signals/{signal}/delete               | POST        |
 |:heavy_check_mark:|/1/signals/{signal}/send                 | POST        |
+
+### Local API
+
+http://local.swagger.nature.global/
+
+|     Status       |Endpoint | HTTP Method |
+|:----------------:|---------|:-----------:|
+|                  |/messages| GET         |
+|                  |/messages| POST        |
 
 ## Features and bugs
 

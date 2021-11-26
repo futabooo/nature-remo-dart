@@ -1,4 +1,4 @@
-name: test
+name: Dart CI
 
 on:
   push:
