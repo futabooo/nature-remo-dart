@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:nature_remo/src/client.dart';
 import 'package:nature_remo/src/model/aircon.dart';
@@ -13,31 +14,156 @@ import 'package:nature_remo/src/model/smart_meter.dart';
 import 'package:nature_remo/src/model/tv.dart';
 import 'package:nature_remo/src/model/user.dart';
 import 'package:test/test.dart';
-import 'package:http/http.dart' as http;
 
 void main() {
   late Client natureRemoClient;
 
-  group('users', () {
+  late Appliance appliance;
+  late Device device;
+  late Signal signal;
+
+  setUp(() async {
+    appliance = Appliance(
+      id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+      device: DeviceCore(
+          id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+          name: 'string',
+          temperatureOffset: 0,
+          humidityOffset: 0,
+          createdAt: DateTime.parse('2021-09-08T06:10:38.923Z'),
+          updatedAt: DateTime.parse('2021-09-08T06:10:38.923Z'),
+          firmwareVersion: 'string',
+          macAddress: 'string',
+          serialNumber: 'string'),
+      model: ApplianceModel(
+          id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+          manufacturer: 'string',
+          remoteName: 'string',
+          name: 'string',
+          image: 'string'),
+      nickname: 'string',
+      image: 'string',
+      type: ApplianceType.ac,
+      airConSetting: AirConSetting(
+        temperature: 'string',
+        mode: OperationMode.auto,
+        airVolume: AirVolume.auto,
+        airDirection: AirDirection.auto,
+        acButton: ACButton.powerOn,
+      ),
+      airCon: AirCon(
+          range: AirConRange(
+            modes: <OperationMode, AirConRangeMode>{
+              OperationMode.cool: AirConRangeMode(
+                temperature: ['string'],
+                airVolume: [AirVolume.auto],
+                airDirection: [AirDirection.auto],
+              ),
+              OperationMode.warm: AirConRangeMode(
+                temperature: ['string'],
+                airVolume: [AirVolume.auto],
+                airDirection: [AirDirection.auto],
+              ),
+              OperationMode.dry: AirConRangeMode(
+                temperature: ['string'],
+                airVolume: [AirVolume.auto],
+                airDirection: [AirDirection.auto],
+              ),
+              OperationMode.blow: AirConRangeMode(
+                temperature: ['string'],
+                airVolume: [AirVolume.auto],
+                airDirection: [AirDirection.auto],
+              ),
+              OperationMode.auto: AirConRangeMode(
+                temperature: ['string'],
+                airVolume: [AirVolume.auto],
+                airDirection: [AirDirection.auto],
+              ),
+            },
+            fixedButtons: [ACButton.powerOn],
+          ),
+          temperatureUnit: TemperatureUnit.auto),
+      signals: [Signal(id: '3fa85f64-5717-4562-b3fc-2c963f66afa6', name: 'string', image: 'string')],
+      tv: Tv(
+          state: TvState(inputType: TvInputType.t),
+          buttons: [Button(name: 'string', image: 'string', label: 'string')]),
+      light: Light(
+          state: LightState(brightness: 'string', power: Power.on, lastButton: 'string'),
+          buttons: [Button(name: 'string', image: 'string', label: 'string')]),
+      smartMeter: SmartMeter(echonetLiteProperties: [
+        EchonetLiteProperty(
+            name: 'string', epc: 0, val: 'string', updatedAt: DateTime.parse('2021-09-08T06:10:38.923Z'))
+      ]),
+    );
+    device = Device(
+        deviceCore: DeviceCore(
+          id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+          name: 'string',
+          temperatureOffset: 0,
+          humidityOffset: 0,
+          createdAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
+          updatedAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
+          firmwareVersion: 'string',
+          macAddress: 'string',
+          serialNumber: 'string',
+        ),
+        newestEvents: <SensorType, SensorValue>{
+          temperature: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
+          humidity: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
+          illumination: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
+          movement: SensorValue(value: 1, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
+        });
+    signal = Signal(
+      id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+      name: 'string',
+      image: 'string',
+    );
+    final mockClient = MockClient((request) async {
+      print(request.url.path);
+      File? file;
+      switch (request.url.path) {
+        case '/1/users/me':
+          file = File('test/data/user.json');
+          break;
+        case '/1/devices':
+          file = File('test/data/devices.json');
+          break;
+        case '/1/devices/3fa85f64-5717-4562-b3fc-2c963f66afa6':
+          file = File('test/data/device.json');
+          break;
+        case '/1/devices/3fa85f64-5717-4562-b3fc-2c963f66afa6/temperature_offset':
+          file = File('test/data/device.json');
+          break;
+        case '/1/devices/3fa85f64-5717-4562-b3fc-2c963f66afa6/humidity_offset':
+          file = File('test/data/device.json');
+          break;
+        case '/1/appliances':
+          file = File('test/data/appliances.json');
+          break;
+        case '/1/appliances/3fa85f64-5717-4562-b3fc-2c963f66afa6/signals':
+          file = File('test/data/signals.json');
+          break;
+        default:
+          AssertionError();
+      }
+      final json = await file!.readAsString();
+      return http.Response(json, HttpStatus.ok, headers: <String, String>{
+        HttpHeaders.contentTypeHeader: 'application/json',
+        'x-rate-limit-limit': '30',
+        'x-rate-limit-remaining': '29',
+        'x-rate-limit-reset': '1631972400',
+      });
+    });
+    natureRemoClient = Client(
+      accessToken: 'accessToken',
+      httpClient: mockClient,
+    );
+  });
+  group('user', () {
     test('getMe', () async {
       final me = User(
         id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
         nickname: 'string',
-      );
-
-      Future<http.Response> requestHandler(http.Request request) async {
-        final json = await File('test/data/user.json').readAsString();
-        return http.Response(json, HttpStatus.ok, headers: <String, String>{
-          HttpHeaders.contentTypeHeader: 'application/json',
-          'x-rate-limit-limit': '30',
-          'x-rate-limit-remaining': '29',
-          'x-rate-limit-reset': '1631972400',
-        });
-      }
-
-      natureRemoClient = Client(
-        accessToken: 'accessToken',
-        httpClient: MockClient(requestHandler),
       );
 
       final response = await natureRemoClient.getMe();
@@ -46,56 +172,23 @@ void main() {
     });
   });
 
-  group('devices', () {
+  group('device', () {
     test('getDevices', () async {
-      final devices = [
-        Device(
-            deviceCore: DeviceCore(
-              id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-              name: 'string',
-              temperatureOffset: 0,
-              humidityOffset: 0,
-              createdAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
-              updatedAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
-              firmwareVersion: 'string',
-              macAddress: 'string',
-              serialNumber: 'string',
-            ),
-            newestEvents: <SensorType, SensorValue>{
-              temperature: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-              humidity: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-              illumination: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-              movement: SensorValue(value: 1, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-            })
-      ];
-      Future<http.Response> requestHandler(http.Request request) async {
-        final json = await File('test/data/devices.json').readAsString();
-        return http.Response(json, HttpStatus.ok, headers: <String, String>{
-          HttpHeaders.contentTypeHeader: 'application/json',
-          'x-rate-limit-limit': '30',
-          'x-rate-limit-remaining': '29',
-          'x-rate-limit-reset': '1631972400',
-        });
-      }
-
-      natureRemoClient = Client(
-        accessToken: 'accessToken',
-        httpClient: MockClient(requestHandler),
-      );
+      final devices = [device];
 
       final response = await natureRemoClient.getDevices();
       expect(response.length, devices.length);
 
       final actualDevice = response.first.deviceCore;
-      final device = devices.first.deviceCore;
-      expect(actualDevice.id, device.id);
-      expect(actualDevice.temperatureOffset, device.temperatureOffset);
-      expect(actualDevice.humidityOffset, device.humidityOffset);
-      expect(actualDevice.createdAt, device.createdAt);
-      expect(actualDevice.updatedAt, device.updatedAt);
-      expect(actualDevice.firmwareVersion, device.firmwareVersion);
-      expect(actualDevice.macAddress, device.macAddress);
-      expect(actualDevice.serialNumber, device.serialNumber);
+      final deviceCore = devices.first.deviceCore;
+      expect(actualDevice.id, deviceCore.id);
+      expect(actualDevice.temperatureOffset, deviceCore.temperatureOffset);
+      expect(actualDevice.humidityOffset, deviceCore.humidityOffset);
+      expect(actualDevice.createdAt, deviceCore.createdAt);
+      expect(actualDevice.updatedAt, deviceCore.updatedAt);
+      expect(actualDevice.firmwareVersion, deviceCore.firmwareVersion);
+      expect(actualDevice.macAddress, deviceCore.macAddress);
+      expect(actualDevice.serialNumber, deviceCore.serialNumber);
 
       final actualEvents = response.first.newestEvents;
       final events = devices.first.newestEvents;
@@ -111,40 +204,6 @@ void main() {
     });
 
     test('updateDevice', () async {
-      final device = Device(
-          deviceCore: DeviceCore(
-            id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-            name: 'string',
-            temperatureOffset: 0,
-            humidityOffset: 0,
-            createdAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
-            updatedAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
-            firmwareVersion: 'string',
-            macAddress: 'string',
-            serialNumber: 'string',
-          ),
-          newestEvents: <SensorType, SensorValue>{
-            temperature: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-            humidity: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-            illumination: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-            movement: SensorValue(value: 1, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-          });
-
-      Future<http.Response> requestHandler(http.Request request) async {
-        final json = await File('test/data/device.json').readAsString();
-        return http.Response(json, HttpStatus.ok, headers: <String, String>{
-          HttpHeaders.contentTypeHeader: 'application/json',
-          'x-rate-limit-limit': '30',
-          'x-rate-limit-remaining': '29',
-          'x-rate-limit-reset': '1631972400',
-        });
-      }
-
-      natureRemoClient = Client(
-        accessToken: 'accessToken',
-        httpClient: MockClient(requestHandler),
-      );
-
       final response = await natureRemoClient.updateDevice(device.deviceCore);
       expect(response.deviceCore.id, device.deviceCore.id);
       expect(response.deviceCore.name, device.deviceCore.name);
@@ -155,80 +214,12 @@ void main() {
     });
 
     test('updateDeviceTemperatureOffset', () async {
-      final device = Device(
-          deviceCore: DeviceCore(
-            id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-            name: 'string',
-            temperatureOffset: 0,
-            humidityOffset: 0,
-            createdAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
-            updatedAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
-            firmwareVersion: 'string',
-            macAddress: 'string',
-            serialNumber: 'string',
-          ),
-          newestEvents: <SensorType, SensorValue>{
-            temperature: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-            humidity: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-            illumination: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-            movement: SensorValue(value: 1, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-          });
-
-      Future<http.Response> requestHandler(http.Request request) async {
-        final json = await File('test/data/device.json').readAsString();
-        return http.Response(json, HttpStatus.ok, headers: <String, String>{
-          HttpHeaders.contentTypeHeader: 'application/json',
-          'x-rate-limit-limit': '30',
-          'x-rate-limit-remaining': '29',
-          'x-rate-limit-reset': '1631972400',
-        });
-      }
-
-      natureRemoClient = Client(
-        accessToken: 'accessToken',
-        httpClient: MockClient(requestHandler),
-      );
-
       final response = await natureRemoClient.updateDeviceTemperatureOffset(device.deviceCore);
       expect(response.deviceCore.id, device.deviceCore.id);
       expect(response.newestEvents[temperature]?.value, device.newestEvents[temperature]?.value);
       expect(response.newestEvents[temperature]?.createdAt, device.newestEvents[temperature]?.createdAt);
     });
     test('updateDeviceHumidityOffset', () async {
-      final device = Device(
-          deviceCore: DeviceCore(
-            id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-            name: 'string',
-            temperatureOffset: 0,
-            humidityOffset: 0,
-            createdAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
-            updatedAt: DateTime.parse('2021-09-04T00:19:23.979Z'),
-            firmwareVersion: 'string',
-            macAddress: 'string',
-            serialNumber: 'string',
-          ),
-          newestEvents: <SensorType, SensorValue>{
-            temperature: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-            humidity: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-            illumination: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-            movement: SensorValue(value: 1, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-          });
-
-      Future<http.Response> requestHandler(http.Request request) async {
-        final json = await File('test/data/device.json').readAsString();
-        return http.Response(json, HttpStatus.ok, headers: <String, String>{
-          HttpHeaders.contentTypeHeader: 'application/json',
-          'x-rate-limit-limit': '30',
-          'x-rate-limit-remaining': '29',
-          'x-rate-limit-reset': '1631972400',
-        });
-      }
-
-      natureRemoClient = Client(
-        accessToken: 'accessToken',
-        httpClient: MockClient(requestHandler),
-      );
-
       final response = await natureRemoClient.updateDeviceHumidityOffset(device.deviceCore);
       expect(response.deviceCore.id, device.deviceCore.id);
       expect(response.newestEvents[humidity]?.value, device.newestEvents[humidity]?.value);
@@ -238,107 +229,19 @@ void main() {
 
   group('appliance', () {
     test('getAppliances', () async {
-      final appliances = [
-        Appliance(
-          id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-          device: DeviceCore(
-              id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-              name: 'string',
-              temperatureOffset: 0,
-              humidityOffset: 0,
-              createdAt: DateTime.parse('2021-09-08T06:10:38.923Z'),
-              updatedAt: DateTime.parse('2021-09-08T06:10:38.923Z'),
-              firmwareVersion: 'string',
-              macAddress: 'string',
-              serialNumber: 'string'),
-          model: ApplianceModel(
-              id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
-              manufacturer: 'string',
-              remoteName: 'string',
-              name: 'string',
-              image: 'string'),
-          nickname: 'string',
-          image: 'string',
-          type: ApplianceType.ac,
-          airConSetting: AirConSetting(
-            temperature: 'string',
-            mode: OperationMode.auto,
-            airVolume: AirVolume.auto,
-            airDirection: AirDirection.auto,
-            acButton: ACButton.powerOn,
-          ),
-          airCon: AirCon(
-              range: AirConRange(
-                modes: <OperationMode, AirConRangeMode>{
-                  OperationMode.cool: AirConRangeMode(
-                    temperature: ['string'],
-                    airVolume: [AirVolume.auto],
-                    airDirection: [AirDirection.auto],
-                  ),
-                  OperationMode.warm: AirConRangeMode(
-                    temperature: ['string'],
-                    airVolume: [AirVolume.auto],
-                    airDirection: [AirDirection.auto],
-                  ),
-                  OperationMode.dry: AirConRangeMode(
-                    temperature: ['string'],
-                    airVolume: [AirVolume.auto],
-                    airDirection: [AirDirection.auto],
-                  ),
-                  OperationMode.blow: AirConRangeMode(
-                    temperature: ['string'],
-                    airVolume: [AirVolume.auto],
-                    airDirection: [AirDirection.auto],
-                  ),
-                  OperationMode.auto: AirConRangeMode(
-                    temperature: ['string'],
-                    airVolume: [AirVolume.auto],
-                    airDirection: [AirDirection.auto],
-                  ),
-                },
-                fixedButtons: [ACButton.powerOn],
-              ),
-              temperatureUnit: TemperatureUnit.auto),
-          signals: [Signal(id: '3fa85f64-5717-4562-b3fc-2c963f66afa6', name: 'string', image: 'string')],
-          tv: Tv(
-              state: TvState(inputType: TvInputType.t),
-              buttons: [Button(name: 'string', image: 'string', label: 'string')]),
-          light: Light(
-              state: LightState(brightness: 'string', power: Power.on, lastButton: 'string'),
-              buttons: [Button(name: 'string', image: 'string', label: 'string')]),
-          smartMeter: SmartMeter(echonetLiteProperties: [
-            EchonetLiteProperty(
-                name: 'string', epc: 0, val: 'string', updatedAt: DateTime.parse('2021-09-08T06:10:38.923Z'))
-          ]),
-        )
-      ];
-      Future<http.Response> requestHandler(http.Request request) async {
-        final json = await File('test/data/appliance.json').readAsString();
-        return http.Response(json, HttpStatus.ok, headers: <String, String>{
-          HttpHeaders.contentTypeHeader: 'application/json',
-          'x-rate-limit-limit': '30',
-          'x-rate-limit-remaining': '29',
-          'x-rate-limit-reset': '1631972400',
-        });
-      }
-
-      natureRemoClient = Client(
-        accessToken: 'accessToken',
-        httpClient: MockClient(requestHandler),
-      );
-
+      final appliances = [appliance];
       final response = await natureRemoClient.getAppliances();
       expect(response.length, appliances.length);
 
       final actualAppliance = response.first;
-      final appliance = appliances.first;
-      expect(actualAppliance.id, appliance.id);
-      expect(actualAppliance.nickname, appliance.nickname);
-      expect(actualAppliance.image, appliance.image);
-      expect(actualAppliance.type, appliance.type);
+      final first = appliances.first;
+      expect(actualAppliance.id, first.id);
+      expect(actualAppliance.nickname, first.nickname);
+      expect(actualAppliance.image, first.image);
+      expect(actualAppliance.type, first.type);
 
       final actualDevice = actualAppliance.device;
-      final device = appliance.device;
+      final device = first.device;
       expect(actualDevice.id, device.id);
       expect(actualDevice.name, device.name);
       expect(actualDevice.temperatureOffset, device.temperatureOffset);
@@ -350,7 +253,7 @@ void main() {
       expect(actualDevice.serialNumber, device.serialNumber);
 
       final actualModel = actualAppliance.model;
-      final model = appliance.model;
+      final model = first.model;
       expect(actualModel.id, model.id);
       expect(actualModel.manufacturer, model.manufacturer);
       expect(actualModel.remoteName, model.remoteName);
@@ -358,7 +261,7 @@ void main() {
       expect(actualModel.image, model.image);
 
       final actualSetting = actualAppliance.airConSetting;
-      final setting = appliance.airConSetting;
+      final setting = first.airConSetting;
       expect(actualSetting.temperature, setting.temperature);
       expect(actualSetting.mode, setting.mode);
       expect(actualSetting.airVolume, setting.airVolume);
@@ -366,7 +269,7 @@ void main() {
       expect(actualSetting.acButton, setting.acButton);
 
       final actualAirCon = actualAppliance.airCon;
-      final airCon = appliance.airCon;
+      final airCon = first.airCon;
       expect(actualAirCon.range.modes[OperationMode.cool.text], airCon.range.modes[OperationMode.cool.text]);
       expect(actualAirCon.range.modes[OperationMode.warm.text], airCon.range.modes[OperationMode.warm.text]);
       expect(actualAirCon.range.modes[OperationMode.dry.text], airCon.range.modes[OperationMode.dry.text]);
@@ -377,14 +280,14 @@ void main() {
       expect(actualAirCon.temperatureUnit, airCon.temperatureUnit);
 
       final actualSignals = actualAppliance.signals;
-      final signals = appliance.signals;
+      final signals = first.signals;
       expect(actualSignals.length, signals.length);
       expect(actualSignals.first.id, signals.first.id);
       expect(actualSignals.first.name, signals.first.name);
       expect(actualSignals.first.image, signals.first.image);
 
       final actualTv = actualAppliance.tv;
-      final tv = appliance.tv;
+      final tv = first.tv;
       expect(actualTv.state.inputType, tv.state.inputType);
       expect(actualTv.buttons.length, tv.buttons.length);
       expect(actualTv.buttons.first.name, tv.buttons.first.name);
@@ -392,7 +295,7 @@ void main() {
       expect(actualTv.buttons.first.label, tv.buttons.first.label);
 
       final actualLight = actualAppliance.light;
-      final light = appliance.light;
+      final light = first.light;
       expect(actualLight.state.brightness, light.state.brightness);
       expect(actualLight.state.power, light.state.power);
       expect(actualLight.state.lastButton, light.state.lastButton);
@@ -401,7 +304,7 @@ void main() {
       expect(actualLight.buttons.first.label, light.buttons.first.label);
 
       final actualSmartMeter = actualAppliance.smartMeter;
-      final smartMeter = appliance.smartMeter;
+      final smartMeter = first.smartMeter;
       expect(actualSmartMeter.echonetLiteProperties.length, smartMeter.echonetLiteProperties.length);
 
       final actualEchonetLiteProperty = actualSmartMeter.echonetLiteProperties.first;
@@ -411,26 +314,29 @@ void main() {
       expect(actualEchonetLiteProperty.val, echonetLiteProperty.val);
       expect(actualEchonetLiteProperty.updatedAt, echonetLiteProperty.updatedAt);
     });
+    test('registerAppliance', () async {
+      // TODO: implements
+    });
+  });
+
+  group('signal', () {
+    test('getSignals', () async {
+      final signals = [signal];
+      final response = await natureRemoClient.getSignals(appliance: appliance);
+
+      expect(response.length, signals.length);
+      expect(response.first.id, signals.first.id);
+      expect(response.first.name, signals.first.name);
+      expect(response.first.image, signals.first.image);
+    });
   });
 
   group('headers', () {
     test('correct headers', () async {
-      Future<http.Response> requestHandler(http.Request request) async {
-        final json = await File('test/data/user.json').readAsString();
-        return http.Response(json, HttpStatus.ok, headers: <String, String>{
-          HttpHeaders.contentTypeHeader: 'application/json',
-          'x-rate-limit-limit': '30',
-          'x-rate-limit-remaining': '29',
-          'x-rate-limit-reset': '1631972400',
-        });
-      }
-
-      natureRemoClient = Client(
-        accessToken: 'accessToken',
-        httpClient: MockClient(requestHandler),
-      );
-
-      final response = await natureRemoClient.getMe();
+      expect(natureRemoClient.lastRateLimit?.limit, null);
+      expect(natureRemoClient.lastRateLimit?.remaining, null);
+      expect(natureRemoClient.lastRateLimit?.reset, null);
+      await natureRemoClient.getMe();
       expect(natureRemoClient.lastRateLimit?.limit, 30);
       expect(natureRemoClient.lastRateLimit?.remaining, 29);
       expect(natureRemoClient.lastRateLimit?.reset, DateTime.parse('2021-09-18 13:40:00.000Z'));
