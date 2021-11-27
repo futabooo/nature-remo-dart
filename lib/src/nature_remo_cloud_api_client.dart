@@ -1,23 +1,24 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:http/http.dart' as http;
 import 'package:nature_remo/src/model/aircon.dart';
 import 'package:nature_remo/src/model/appliance.dart';
 import 'package:nature_remo/src/model/appliance_model_and_param.dart';
 import 'package:nature_remo/src/model/button.dart';
 import 'package:nature_remo/src/model/device.dart';
+import 'package:nature_remo/src/model/image.dart';
 import 'package:nature_remo/src/model/infrared_signal.dart';
 import 'package:nature_remo/src/model/light.dart';
 import 'package:nature_remo/src/model/nature_remo_exception.dart';
 import 'package:nature_remo/src/model/rate_limit.dart';
-import 'package:nature_remo/src/model/image.dart';
 import 'package:nature_remo/src/model/signal.dart';
 import 'package:nature_remo/src/model/tv.dart';
 import 'package:nature_remo/src/model/user.dart';
 
 typedef Json = Map<String, dynamic>;
 
-class Client {
+class NatureRemoCloudApiClient {
   static const String _host = 'api.nature.global';
   static const String _apiVersion = '1';
 
@@ -28,7 +29,7 @@ class Client {
   RateLimit? _lastRateLimit;
   RateLimit? get lastRateLimit => _lastRateLimit;
 
-  Client({required String accessToken, http.Client? httpClient})
+  NatureRemoCloudApiClient({required String accessToken, http.Client? httpClient})
       : _accessToken = accessToken,
         _httpClient = httpClient ?? http.Client();
 

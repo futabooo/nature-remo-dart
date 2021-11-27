@@ -8,7 +8,7 @@ void main() async {
     throw Exception('Env: NATUREREMO_ACCESS_TOKEN does not exist');
   }
 
-  final natureRemoClient = Client(accessToken: accessToken);
+  final natureRemoClient = NatureRemoCloudApiClient(accessToken: accessToken);
   final me = await natureRemoClient.getMe();
   print('nickname=${me.nickname}');
 

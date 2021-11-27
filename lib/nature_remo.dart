@@ -1,9 +1,9 @@
 library nature_remo;
 
-export 'src/client.dart';
+export 'src/nature_remo_cloud_api_client.dart';
 export 'src/model/aircon.dart';
-export 'src/model/appliance_model_and_param.dart';
 export 'src/model/appliance.dart';
+export 'src/model/appliance_model_and_param.dart';
 export 'src/model/button.dart';
 export 'src/model/device.dart';
 export 'src/model/image.dart';

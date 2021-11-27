@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
-import 'package:nature_remo/src/client.dart';
+import 'package:nature_remo/src/nature_remo_cloud_api_client.dart';
 import 'package:nature_remo/src/model/aircon.dart';
 import 'package:nature_remo/src/model/appliance.dart';
 import 'package:nature_remo/src/model/button.dart';
@@ -16,7 +16,7 @@ import 'package:nature_remo/src/model/user.dart';
 import 'package:test/test.dart';
 
 void main() {
-  late Client natureRemoClient;
+  late NatureRemoCloudApiClient natureRemoClient;
 
   late Appliance appliance;
   late Device device;
@@ -154,7 +154,7 @@ void main() {
         'x-rate-limit-reset': '1631972400',
       });
     });
-    natureRemoClient = Client(
+    natureRemoClient = NatureRemoCloudApiClient(
       accessToken: 'accessToken',
       httpClient: mockClient,
     );
