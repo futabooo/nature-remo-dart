@@ -1,0 +1,15 @@
+name: server_shelf
+publish_to: none
+
+environment:
+  sdk: ">=2.14.4 <3.0.0"
+
+dependencies:
+  args: ^2.0.0
+  shelf: ^1.1.0
+  shelf_router: ^1.0.0
+  nature_remo:
+    path: ../../
+
+dev_dependencies:
+  lints: ^1.0.0
