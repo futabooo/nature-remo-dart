@@ -45,7 +45,8 @@ class Appliance {
         type: ApplianceTypeExt.fromText(json['type']),
         airConSetting: AirConSetting.fromJson(json['settings']),
         airCon: AirCon.fromJson(json['aircon']),
-        signals: List.from((json['signals'] as Iterable).map((e) => Signal.fromJson(e))),
+        signals: List.from(
+            (json['signals'] as Iterable).map((e) => Signal.fromJson(e))),
         tv: Tv.fromJson(json['tv']),
         light: Light.fromJson(json['light']),
         smartMeter: SmartMeter.fromJson(

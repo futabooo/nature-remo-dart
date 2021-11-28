@@ -16,5 +16,4 @@ class InfraredSignal {
       format: json['format'],
     );
   }
-  
 }

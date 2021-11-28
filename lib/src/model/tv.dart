@@ -12,7 +12,8 @@ class Tv {
   factory Tv.fromJson(Map<String, dynamic> json) {
     return Tv(
       state: TvState.fromJson(json['state']),
-      buttons: List<Button>.from((json['buttons'] as Iterable).map((e) => Button.fromJson(e))),
+      buttons: List<Button>.from(
+          (json['buttons'] as Iterable).map((e) => Button.fromJson(e))),
     );
   }
 }

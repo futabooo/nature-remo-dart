@@ -6,7 +6,8 @@ class SmartMeter {
   factory SmartMeter.fromJson(Map<String, dynamic> json) {
     return SmartMeter(
         echonetLiteProperties: List<EchonetLiteProperty>.from(
-            (json['echonetlite_properties'] as Iterable).map((e) => EchonetLiteProperty.fromJson(e))));
+            (json['echonetlite_properties'] as Iterable)
+                .map((e) => EchonetLiteProperty.fromJson(e))));
   }
 }
 

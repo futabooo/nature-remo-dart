@@ -12,8 +12,9 @@ class Device {
   factory Device.fromJson(Map<String, dynamic> json) {
     return Device(
       deviceCore: DeviceCore.fromJson(json),
-      newestEvents: (json['newest_events'] as Map<String, dynamic>)
-          .map((key, value) => MapEntry<SensorType, SensorValue>(key, SensorValue.fromJson(value))),
+      newestEvents: (json['newest_events'] as Map<String, dynamic>).map((key,
+              value) =>
+          MapEntry<SensorType, SensorValue>(key, SensorValue.fromJson(value))),
     );
   }
 

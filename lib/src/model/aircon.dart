@@ -26,9 +26,13 @@ class AirConRange {
 
   factory AirConRange.fromJson(Map<String, dynamic> json) {
     return AirConRange(
-        modes: (json['modes'] as Map<String, dynamic>).map((key, value) => MapEntry<OperationMode, AirConRangeMode>(
-            OperationModeExt.fromString(key), AirConRangeMode.fromJson(value))),
-        fixedButtons: List<ACButton>.from((json['fixedButtons'] as Iterable).map((e) => ACButtonExt.fromString(e))));
+        modes: (json['modes'] as Map<String, dynamic>).map(
+          (key, value) => MapEntry<OperationMode, AirConRangeMode>(
+              OperationModeExt.fromString(key),
+              AirConRangeMode.fromJson(value)),
+        ),
+        fixedButtons: List<ACButton>.from((json['fixedButtons'] as Iterable)
+            .map((e) => ACButtonExt.fromString(e))));
   }
 }
 
@@ -46,8 +50,10 @@ class AirConRangeMode {
   factory AirConRangeMode.fromJson(Map<String, dynamic> json) {
     return AirConRangeMode(
       temperature: List<String>.from(json['temp']),
-      airVolume: List<AirVolume>.from((json['vol'] as Iterable).map((e) => AirVolumeExt.fromString(e))),
-      airDirection: List<AirDirection>.from((json['dir'] as Iterable).map((e) => AirDirectionExt.fromString(e))),
+      airVolume: List<AirVolume>.from(
+          (json['vol'] as Iterable).map((e) => AirVolumeExt.fromString(e))),
+      airDirection: List<AirDirection>.from(
+          (json['dir'] as Iterable).map((e) => AirDirectionExt.fromString(e))),
     );
   }
 }
@@ -140,7 +146,8 @@ extension ACButtonExt on ACButton {
 extension OperationModeExt on OperationMode {
   String get text => toString().split('.').last;
   static OperationMode fromString(String text) {
-    return OperationMode.values.firstWhere((e) => e.text == text, orElse: () => OperationMode.auto);
+    return OperationMode.values
+        .firstWhere((e) => e.text == text, orElse: () => OperationMode.auto);
   }
 }
 
@@ -157,7 +164,8 @@ extension TemperatureUnitExt on TemperatureUnit {
   }
 
   static TemperatureUnit fromString(String text) {
-    return TemperatureUnit.values.firstWhere((e) => e.text == text, orElse: () => TemperatureUnit.auto);
+    return TemperatureUnit.values
+        .firstWhere((e) => e.text == text, orElse: () => TemperatureUnit.auto);
   }
 }
 
@@ -190,7 +198,8 @@ extension AirVolumeExt on AirVolume {
   }
 
   static AirVolume fromString(String text) {
-    return AirVolume.values.firstWhere((e) => e.text == text, orElse: () => AirVolume.auto);
+    return AirVolume.values
+        .firstWhere((e) => e.text == text, orElse: () => AirVolume.auto);
   }
 }
 

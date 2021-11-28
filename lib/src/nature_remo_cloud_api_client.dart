@@ -29,7 +29,8 @@ class NatureRemoCloudApiClient {
   RateLimit? _lastRateLimit;
   RateLimit? get lastRateLimit => _lastRateLimit;
 
-  NatureRemoCloudApiClient({required String accessToken, http.Client? httpClient})
+  NatureRemoCloudApiClient(
+      {required String accessToken, http.Client? httpClient})
       : _accessToken = accessToken,
         _httpClient = httpClient ?? http.Client();
 
@@ -53,8 +54,10 @@ class NatureRemoCloudApiClient {
   }
 
   Future<Device> updateDevice(DeviceCore deviceCore) async {
-    final response = await _post('devices/${deviceCore.id}', data: {'name': deviceCore.name});
-    final updated = Device.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+    final response = await _post('devices/${deviceCore.id}',
+        data: {'name': deviceCore.name});
+    final updated =
+        Device.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     return updated;
   }
 
@@ -67,7 +70,8 @@ class NatureRemoCloudApiClient {
       'devices/${deviceCore.id}/temperature_offset',
       data: {'offset': deviceCore.temperatureOffset.toString()},
     );
-    final updated = Device.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+    final updated =
+        Device.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     return updated;
   }
 
@@ -76,14 +80,16 @@ class NatureRemoCloudApiClient {
       'devices/${deviceCore.id}/humidity_offset',
       data: {'offset': deviceCore.humidityOffset.toString()},
     );
-    final updated = Device.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
+    final updated =
+        Device.fromJson(jsonDecode(utf8.decode(response.bodyBytes)));
     return updated;
   }
 
   Future<List<Appliance>> getAppliances() async {
     final response = await _get('appliances');
     final json = jsonDecode(utf8.decode(response.bodyBytes)) as Iterable;
-    final appliances = List<Appliance>.from(json.map((e) => Appliance.fromJson(e)));
+    final appliances =
+        List<Appliance>.from(json.map((e) => Appliance.fromJson(e)));
     return appliances;
   }
 
@@ -118,8 +124,8 @@ class NatureRemoCloudApiClient {
     final requestData = {'message': jsonEncode(infraredSignal)};
     final response = await _post('detectappliance', data: requestData);
     final json = jsonDecode(utf8.decode(response.bodyBytes));
-    final applianceModelAndParams =
-        List<ApplianceModelAndParam>.from(json.map((e) => ApplianceModelAndParam.fromJson(e)));
+    final applianceModelAndParams = List<ApplianceModelAndParam>.from(
+        json.map((e) => ApplianceModelAndParam.fromJson(e)));
     return applianceModelAndParams;
   }
 
@@ -127,10 +133,13 @@ class NatureRemoCloudApiClient {
   Future<List<Appliance>> applianceOrders({
     required List<Appliance> appliances,
   }) async {
-    final requestData = {'appliances': appliances.map((appliance) => appliance.id)};
+    final requestData = {
+      'appliances': appliances.map((appliance) => appliance.id)
+    };
     final response = await _post('appliance_orders', data: requestData);
     final json = jsonDecode(utf8.decode(response.bodyBytes));
-    final reOrderdAppliances = List<Appliance>.from(json.map((e) => Appliance.fromJson(e)));
+    final reOrderdAppliances =
+        List<Appliance>.from(json.map((e) => Appliance.fromJson(e)));
     return reOrderdAppliances;
   }
 
@@ -146,7 +155,8 @@ class NatureRemoCloudApiClient {
     required String nickname,
   }) async {
     final requestData = {'image': image, 'nickname': nickname};
-    final response = await _post('appliances/${appliance.id}', data: requestData);
+    final response =
+        await _post('appliances/${appliance.id}', data: requestData);
     final json = jsonDecode(utf8.decode(response.bodyBytes));
     final updated = Appliance.fromJson(json);
     return updated;
@@ -177,7 +187,8 @@ class NatureRemoCloudApiClient {
     required Button button,
   }) async {
     final requestData = {'button': button.name};
-    final response = await _post('appliances/${appliance.id}/tv', data: requestData);
+    final response =
+        await _post('appliances/${appliance.id}/tv', data: requestData);
     final json = jsonDecode(utf8.decode(response.bodyBytes));
     final tvState = TvState.fromJson(json);
     return tvState;
@@ -188,7 +199,8 @@ class NatureRemoCloudApiClient {
     required Button button,
   }) async {
     final requestData = {'button': button.name};
-    final response = await _post('appliances/${appliance.id}/light', data: requestData);
+    final response =
+        await _post('appliances/${appliance.id}/light', data: requestData);
     final json = jsonDecode(utf8.decode(response.bodyBytes));
     final lightState = LightState.fromJson(json);
     return lightState;
@@ -209,8 +221,13 @@ class NatureRemoCloudApiClient {
     required Image image,
     required String name,
   }) async {
-    final requestData = {'message': jsonEncode(infraredSignal), 'image': image, 'name': name};
-    final response = await _post('appliances/${appliance.id}/signals', data: requestData);
+    final requestData = {
+      'message': jsonEncode(infraredSignal),
+      'image': image,
+      'name': name
+    };
+    final response =
+        await _post('appliances/${appliance.id}/signals', data: requestData);
     final json = jsonDecode(utf8.decode(response.bodyBytes));
     final signal = Signal.fromJson(json);
     return signal;
@@ -221,9 +238,11 @@ class NatureRemoCloudApiClient {
     required List<Signal> signals,
   }) async {
     final requestData = {'signals': signals.map((signal) => signal.id)};
-    final response = await _post('appliances/${appliance.id}/signal_orders', data: requestData);
+    final response = await _post('appliances/${appliance.id}/signal_orders',
+        data: requestData);
     final json = jsonDecode(utf8.decode(response.bodyBytes));
-    final reOrderdsignals = List<Signal>.from(json.map((e) => Signal.fromJson(e)));
+    final reOrderdsignals =
+        List<Signal>.from(json.map((e) => Signal.fromJson(e)));
     return reOrderdsignals;
   }
 
@@ -253,20 +272,26 @@ class NatureRemoCloudApiClient {
 
   Future<http.Response> _get(String path) async {
     final uri = Uri.https(_host, '/$_apiVersion/$path');
-    final response = await _httpClient.get(uri, headers: {'Authorization': 'Bearer $_accessToken'});
+    final response = await _httpClient
+        .get(uri, headers: {'Authorization': 'Bearer $_accessToken'});
     _lastRateLimit = _rateLimitFromHeader(response.headers);
-    if (!(response.statusCode >= HttpStatus.ok && response.statusCode < HttpStatus.multipleChoices)) {
-      throw NatureRemoException(httpStatusCode: response.statusCode, message: response.body);
+    if (!(response.statusCode >= HttpStatus.ok &&
+        response.statusCode < HttpStatus.multipleChoices)) {
+      throw NatureRemoException(
+          httpStatusCode: response.statusCode, message: response.body);
     }
     return response;
   }
 
   Future<http.Response> _post(String path, {Json? data}) async {
     final uri = Uri.https(_host, '/$_apiVersion/$path', data);
-    final response = await _httpClient.post(uri, headers: {'Authorization': 'Bearer $_accessToken'});
+    final response = await _httpClient
+        .post(uri, headers: {'Authorization': 'Bearer $_accessToken'});
     _lastRateLimit = _rateLimitFromHeader(response.headers);
-    if (!(response.statusCode >= HttpStatus.ok && response.statusCode < HttpStatus.multipleChoices)) {
-      throw NatureRemoException(httpStatusCode: response.statusCode, message: response.body);
+    if (!(response.statusCode >= HttpStatus.ok &&
+        response.statusCode < HttpStatus.multipleChoices)) {
+      throw NatureRemoException(
+          httpStatusCode: response.statusCode, message: response.body);
     }
     return response;
   }
@@ -289,7 +314,8 @@ class NatureRemoCloudApiClient {
 
     return RateLimit(
       limit: int.parse(limitString),
-      reset: DateTime.fromMillisecondsSinceEpoch(int.parse(resetString) * 1000, isUtc: true),
+      reset: DateTime.fromMillisecondsSinceEpoch(int.parse(resetString) * 1000,
+          isUtc: true),
       remaining: int.parse(remainingString),
     );
   }

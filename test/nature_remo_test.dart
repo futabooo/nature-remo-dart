@@ -83,16 +83,25 @@ void main() {
             fixedButtons: [ACButton.powerOn],
           ),
           temperatureUnit: TemperatureUnit.auto),
-      signals: [Signal(id: '3fa85f64-5717-4562-b3fc-2c963f66afa6', name: 'string', image: 'string')],
+      signals: [
+        Signal(
+            id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+            name: 'string',
+            image: 'string')
+      ],
       tv: Tv(
           state: TvState(inputType: TvInputType.t),
           buttons: [Button(name: 'string', image: 'string', label: 'string')]),
       light: Light(
-          state: LightState(brightness: 'string', power: Power.on, lastButton: 'string'),
+          state: LightState(
+              brightness: 'string', power: Power.on, lastButton: 'string'),
           buttons: [Button(name: 'string', image: 'string', label: 'string')]),
       smartMeter: SmartMeter(echonetLiteProperties: [
         EchonetLiteProperty(
-            name: 'string', epc: 0, val: 'string', updatedAt: DateTime.parse('2021-09-08T06:10:38.923Z'))
+            name: 'string',
+            epc: 0,
+            val: 'string',
+            updatedAt: DateTime.parse('2021-09-08T06:10:38.923Z'))
       ]),
     );
     device = Device(
@@ -108,10 +117,14 @@ void main() {
           serialNumber: 'string',
         ),
         newestEvents: <SensorType, SensorValue>{
-          temperature: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-          humidity: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-          illumination: SensorValue(value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
-          movement: SensorValue(value: 1, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
+          temperature: SensorValue(
+              value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
+          humidity: SensorValue(
+              value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
+          illumination: SensorValue(
+              value: 0, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
+          movement: SensorValue(
+              value: 1, createdAt: DateTime.parse('2020-09-10T06:03:58.213Z')),
         });
     signal = Signal(
       id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
@@ -194,11 +207,13 @@ void main() {
       final events = devices.first.newestEvents;
       expect(actualEvents.length, events.length);
       expect(actualEvents[temperature]?.value, events[temperature]?.value);
-      expect(actualEvents[temperature]?.createdAt, events[temperature]?.createdAt);
+      expect(
+          actualEvents[temperature]?.createdAt, events[temperature]?.createdAt);
       expect(actualEvents[humidity]?.value, events[humidity]?.value);
       expect(actualEvents[humidity]?.createdAt, events[humidity]?.createdAt);
       expect(actualEvents[illumination]?.value, events[illumination]?.value);
-      expect(actualEvents[illumination]?.createdAt, events[illumination]?.createdAt);
+      expect(actualEvents[illumination]?.createdAt,
+          events[illumination]?.createdAt);
       expect(actualEvents[movement]?.value, events[movement]?.value);
       expect(actualEvents[movement]?.createdAt, events[movement]?.createdAt);
     });
@@ -214,16 +229,22 @@ void main() {
     });
 
     test('updateDeviceTemperatureOffset', () async {
-      final response = await natureRemoClient.updateDeviceTemperatureOffset(device.deviceCore);
+      final response = await natureRemoClient
+          .updateDeviceTemperatureOffset(device.deviceCore);
       expect(response.deviceCore.id, device.deviceCore.id);
-      expect(response.newestEvents[temperature]?.value, device.newestEvents[temperature]?.value);
-      expect(response.newestEvents[temperature]?.createdAt, device.newestEvents[temperature]?.createdAt);
+      expect(response.newestEvents[temperature]?.value,
+          device.newestEvents[temperature]?.value);
+      expect(response.newestEvents[temperature]?.createdAt,
+          device.newestEvents[temperature]?.createdAt);
     });
     test('updateDeviceHumidityOffset', () async {
-      final response = await natureRemoClient.updateDeviceHumidityOffset(device.deviceCore);
+      final response =
+          await natureRemoClient.updateDeviceHumidityOffset(device.deviceCore);
       expect(response.deviceCore.id, device.deviceCore.id);
-      expect(response.newestEvents[humidity]?.value, device.newestEvents[humidity]?.value);
-      expect(response.newestEvents[humidity]?.createdAt, device.newestEvents[humidity]?.createdAt);
+      expect(response.newestEvents[humidity]?.value,
+          device.newestEvents[humidity]?.value);
+      expect(response.newestEvents[humidity]?.createdAt,
+          device.newestEvents[humidity]?.createdAt);
     });
   });
 
@@ -270,13 +291,20 @@ void main() {
 
       final actualAirCon = actualAppliance.airCon;
       final airCon = first.airCon;
-      expect(actualAirCon.range.modes[OperationMode.cool.text], airCon.range.modes[OperationMode.cool.text]);
-      expect(actualAirCon.range.modes[OperationMode.warm.text], airCon.range.modes[OperationMode.warm.text]);
-      expect(actualAirCon.range.modes[OperationMode.dry.text], airCon.range.modes[OperationMode.dry.text]);
-      expect(actualAirCon.range.modes[OperationMode.blow.text], airCon.range.modes[OperationMode.blow.text]);
-      expect(actualAirCon.range.modes[OperationMode.auto.text], airCon.range.modes[OperationMode.auto.text]);
-      expect(actualAirCon.range.fixedButtons.length, airCon.range.fixedButtons.length);
-      expect(actualAirCon.range.fixedButtons.first, airCon.range.fixedButtons.first);
+      expect(actualAirCon.range.modes[OperationMode.cool.text],
+          airCon.range.modes[OperationMode.cool.text]);
+      expect(actualAirCon.range.modes[OperationMode.warm.text],
+          airCon.range.modes[OperationMode.warm.text]);
+      expect(actualAirCon.range.modes[OperationMode.dry.text],
+          airCon.range.modes[OperationMode.dry.text]);
+      expect(actualAirCon.range.modes[OperationMode.blow.text],
+          airCon.range.modes[OperationMode.blow.text]);
+      expect(actualAirCon.range.modes[OperationMode.auto.text],
+          airCon.range.modes[OperationMode.auto.text]);
+      expect(actualAirCon.range.fixedButtons.length,
+          airCon.range.fixedButtons.length);
+      expect(actualAirCon.range.fixedButtons.first,
+          airCon.range.fixedButtons.first);
       expect(actualAirCon.temperatureUnit, airCon.temperatureUnit);
 
       final actualSignals = actualAppliance.signals;
@@ -305,14 +333,17 @@ void main() {
 
       final actualSmartMeter = actualAppliance.smartMeter;
       final smartMeter = first.smartMeter;
-      expect(actualSmartMeter.echonetLiteProperties.length, smartMeter.echonetLiteProperties.length);
+      expect(actualSmartMeter.echonetLiteProperties.length,
+          smartMeter.echonetLiteProperties.length);
 
-      final actualEchonetLiteProperty = actualSmartMeter.echonetLiteProperties.first;
+      final actualEchonetLiteProperty =
+          actualSmartMeter.echonetLiteProperties.first;
       final echonetLiteProperty = smartMeter.echonetLiteProperties.first;
       expect(actualEchonetLiteProperty.name, echonetLiteProperty.name);
       expect(actualEchonetLiteProperty.epc, echonetLiteProperty.epc);
       expect(actualEchonetLiteProperty.val, echonetLiteProperty.val);
-      expect(actualEchonetLiteProperty.updatedAt, echonetLiteProperty.updatedAt);
+      expect(
+          actualEchonetLiteProperty.updatedAt, echonetLiteProperty.updatedAt);
     });
     test('registerAppliance', () async {
       // TODO: implements
@@ -339,7 +370,8 @@ void main() {
       await natureRemoClient.getMe();
       expect(natureRemoClient.lastRateLimit?.limit, 30);
       expect(natureRemoClient.lastRateLimit?.remaining, 29);
-      expect(natureRemoClient.lastRateLimit?.reset, DateTime.parse('2021-09-18 13:40:00.000Z'));
+      expect(natureRemoClient.lastRateLimit?.reset,
+          DateTime.parse('2021-09-18 13:40:00.000Z'));
     });
   });
 }

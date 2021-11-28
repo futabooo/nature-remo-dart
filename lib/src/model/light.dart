@@ -12,7 +12,8 @@ class Light {
   factory Light.fromJson(Map<String, dynamic> json) {
     return Light(
       state: LightState.fromJson(json['state']),
-      buttons: List<Button>.from((json['buttons'] as Iterable).map((e) => Button.fromJson(e))),
+      buttons: List<Button>.from(
+          (json['buttons'] as Iterable).map((e) => Button.fromJson(e))),
     );
   }
 }

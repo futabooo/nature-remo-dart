@@ -12,7 +12,8 @@ void main(List<String> args) async {
     throw Exception('Env: NATURE_REMO_ACCESS_TOKEN does not exist');
   }
 
-  final natureRemoCloudApiClient = NatureRemoCloudApiClient(accessToken: accessToken);
+  final natureRemoCloudApiClient =
+      NatureRemoCloudApiClient(accessToken: accessToken);
   Future<Response> _usersHandler(Request request) async {
     final user = await natureRemoCloudApiClient.getMe();
     return Response.ok(
