@@ -3,23 +3,33 @@
 
 ## Usage
 
+see [example](https://github.com/futabooo/nature-remo-dart/tree/main/example).
+
 ```dart
-import 'dart:io';
-
-import 'package:nature_remo/nature_remo.dart';
-
-void main() async {
-  final accessToken = Platform.environment['NATUREREMO_ACCESS_TOKEN'];
+void main(List<String> args) async {
+  final accessToken = Platform.environment['NATURE_REMO_ACCESS_TOKEN'];
   if (accessToken == null || accessToken.isEmpty) {
-    throw Exception('Env: NATUREREMO_ACCESS_TOKEN does not exist');
+    throw Exception('Env: NATURE_REMO_ACCESS_TOKEN does not exist');
   }
 
-  final natureRemoClient = Client(accessToken: accessToken);
-  final me = await natureRemoClient.getMe();
-  print('nickname=${me.nickname}');
+  final natureRemoCloudApiClient = NatureRemoCloudApiClient(accessToken: accessToken);
+  Future<Response> _usersHandler(Request request) async {
+    final user = await natureRemoCloudApiClient.getMe();
+    return Response.ok(
+      jsonEncode(user),
+      headers: {
+        'content-type': 'application/json',
+      },
+    );
+  }
 
-  final updatedMe = await natureRemoClient.updateMe('updated');
-  print('nickname=${updatedMe.nickname}');
+  final _router = Router()..get('/users/me', _usersHandler);
+  final _handler = Pipeline().addMiddleware(logRequests()).addHandler(_router);
+
+  final ip = InternetAddress.anyIPv4;
+  final port = int.parse(Platform.environment['PORT'] ?? '8080');
+  final server = await serve(_handler, ip, port);
+  print('Server listening on port ${server.port}');
 }
 ```
 
