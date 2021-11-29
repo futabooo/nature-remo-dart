@@ -16,4 +16,12 @@ class InfraredSignal {
       format: json['format'],
     );
   }
+
+  Map<String, dynamic> toJson() {
+    return <String, dynamic>{
+      'freq': freq,
+      'data': data,
+      'format': format,
+    };
+  }
 }
