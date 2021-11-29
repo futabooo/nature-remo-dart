@@ -70,8 +70,8 @@ http://local.swagger.nature.global/
 
 |     Status       |Endpoint | HTTP Method |
 |:----------------:|---------|:-----------:|
-|                  |/messages| GET         |
-|                  |/messages| POST        |
+|:heavy_check_mark:|/messages| GET         |
+|:heavy_check_mark:|/messages| POST        |
 
 ## Features and bugs
 
