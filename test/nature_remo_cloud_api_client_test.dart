@@ -132,7 +132,6 @@ void main() {
       image: 'string',
     );
     final mockClient = MockClient((request) async {
-      print(request.url.path);
       File? file;
       switch (request.url.path) {
         case '/1/users/me':
