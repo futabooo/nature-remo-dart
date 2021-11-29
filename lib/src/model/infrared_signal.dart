@@ -12,7 +12,7 @@ class InfraredSignal {
   factory InfraredSignal.fromJson(Map<String, dynamic> json) {
     return InfraredSignal(
       freq: json['freq'],
-      data: json['data'],
+      data: List.from(json['data']),
       format: json['format'],
     );
   }
