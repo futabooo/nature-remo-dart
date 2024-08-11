@@ -3,7 +3,6 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:nature_remo/nature_remo.dart';
-import 'package:nature_remo/src/model/nature_remo_exception.dart';
 
 class NatureRemoLocalApiClient {
   final String address;
