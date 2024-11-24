@@ -1,6 +1,7 @@
 name: local
 description: A simple command-line application.
 version: 1.0.0
+publish_to: none
 # homepage: https://www.example.com
 
 environment:
@@ -9,7 +10,8 @@ environment:
 dependencies:
   args: ^2.3.0
   multicast_dns: ^0.3.1
-  nature_remo: ^0.2.0
+  nature_remo:
+    path: ../../
 
 dev_dependencies:
   lints: ^1.0.0

@@ -40,7 +40,7 @@ class FetchCommand extends Command with RemoFinder {
     final client = NatureRemoLocalApiClient(address: address);
     final infraredSignal = await client.getMessages();
     print('newest received IR signal ${infraredSignal.toJson()}');
-    stdout.writeln('newest received IR signal ${infraredSignal.toJson()}');
+    exitCode = 1;
   }
 }
 
@@ -71,6 +71,7 @@ class EmitCommand extends Command with RemoFinder {
     }
     final client = NatureRemoLocalApiClient(address: address);
     client.postMessages(infraredSignal: infraredSignal);
+    exitCode = 1;
   }
 }
 
