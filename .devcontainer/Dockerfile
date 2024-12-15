@@ -1,5 +1,5 @@
 # Update VARIANT in devcontainer.json to pick a Dart version
-ARG VARIANT=3.5
+ARG VARIANT=3.6
 FROM dart:${VARIANT}
 
 # Add bin location to path
