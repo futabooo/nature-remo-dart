@@ -1,4 +1,4 @@
-library nature_remo;
+library;
 
 export 'src/nature_remo_cloud_api_client.dart';
 export 'src/nature_remo_local_api_client.dart';

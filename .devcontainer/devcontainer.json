@@ -5,7 +5,7 @@
     "dockerfile": "./Dockerfile",
     // Update VARIANT to pick a Dart version
     "args": {
-      "VARIANT": "3.5",
+      "VARIANT": "3.6",
       "UPGRADE_PACKAGES": "true"
     }
   },

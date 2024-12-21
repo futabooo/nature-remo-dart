@@ -2,7 +2,6 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
-import 'package:nature_remo/src/nature_remo_cloud_api_client.dart';
 import 'package:nature_remo/src/model/aircon.dart';
 import 'package:nature_remo/src/model/appliance.dart';
 import 'package:nature_remo/src/model/button.dart';
@@ -13,6 +12,7 @@ import 'package:nature_remo/src/model/signal.dart';
 import 'package:nature_remo/src/model/smart_meter.dart';
 import 'package:nature_remo/src/model/tv.dart';
 import 'package:nature_remo/src/model/user.dart';
+import 'package:nature_remo/src/nature_remo_cloud_api_client.dart';
 import 'package:test/test.dart';
 
 void main() {
@@ -290,20 +290,34 @@ void main() {
 
       final actualAirCon = actualAppliance.airCon;
       final airCon = first.airCon;
-      expect(actualAirCon.range.modes[OperationMode.cool.text],
-          airCon.range.modes[OperationMode.cool.text]);
-      expect(actualAirCon.range.modes[OperationMode.warm.text],
-          airCon.range.modes[OperationMode.warm.text]);
-      expect(actualAirCon.range.modes[OperationMode.dry.text],
-          airCon.range.modes[OperationMode.dry.text]);
-      expect(actualAirCon.range.modes[OperationMode.blow.text],
-          airCon.range.modes[OperationMode.blow.text]);
-      expect(actualAirCon.range.modes[OperationMode.auto.text],
-          airCon.range.modes[OperationMode.auto.text]);
-      expect(actualAirCon.range.fixedButtons.length,
-          airCon.range.fixedButtons.length);
-      expect(actualAirCon.range.fixedButtons.first,
-          airCon.range.fixedButtons.first);
+      expect(
+        actualAirCon.range.modes[OperationMode.cool],
+        airCon.range.modes[OperationMode.cool],
+      );
+      expect(
+        actualAirCon.range.modes[OperationMode.warm],
+        airCon.range.modes[OperationMode.warm],
+      );
+      expect(
+        actualAirCon.range.modes[OperationMode.dry],
+        airCon.range.modes[OperationMode.dry],
+      );
+      expect(
+        actualAirCon.range.modes[OperationMode.blow],
+        airCon.range.modes[OperationMode.blow],
+      );
+      expect(
+        actualAirCon.range.modes[OperationMode.auto],
+        airCon.range.modes[OperationMode.auto],
+      );
+      expect(
+        actualAirCon.range.fixedButtons.length,
+        airCon.range.fixedButtons.length,
+      );
+      expect(
+        actualAirCon.range.fixedButtons.first,
+        airCon.range.fixedButtons.first,
+      );
       expect(actualAirCon.temperatureUnit, airCon.temperatureUnit);
 
       final actualSignals = actualAppliance.signals;

@@ -10,6 +10,3 @@ dependencies:
   shelf_router: ^1.0.0
   nature_remo:
     path: ../../
-
-dev_dependencies:
-  lints: ^1.0.0

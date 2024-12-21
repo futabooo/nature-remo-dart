@@ -26,7 +26,7 @@ class FetchCommand extends Command with RemoFinder {
   @override
   final description = 'Fetch the newest received IR signal';
 
-  FetchCommand() {}
+  FetchCommand();
 
   @override
   void run() async {
