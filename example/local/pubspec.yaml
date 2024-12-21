@@ -12,6 +12,3 @@ dependencies:
   multicast_dns: ^0.3.1
   nature_remo:
     path: ../../
-
-dev_dependencies:
-  lints: ^1.0.0

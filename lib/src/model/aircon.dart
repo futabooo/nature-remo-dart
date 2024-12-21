@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 class AirCon {
   final AirConRange range;
   final TemperatureUnit temperatureUnit;
@@ -56,6 +58,20 @@ class AirConRangeMode {
           (json['dir'] as Iterable).map((e) => AirDirectionExt.fromString(e))),
     );
   }
+
+  @override
+  bool operator ==(covariant AirConRangeMode other) {
+    if (identical(this, other)) return true;
+    final listEquals = const DeepCollectionEquality().equals;
+
+    return listEquals(other.temperature, temperature) &&
+        listEquals(other.airVolume, airVolume) &&
+        listEquals(other.airDirection, airDirection);
+  }
+
+  @override
+  int get hashCode =>
+      temperature.hashCode ^ airVolume.hashCode ^ airDirection.hashCode;
 }
 
 class AirConSetting {

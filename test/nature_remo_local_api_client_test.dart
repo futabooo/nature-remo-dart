@@ -3,7 +3,6 @@ import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';
 import 'package:nature_remo/nature_remo.dart';
-import 'package:nature_remo/src/nature_remo_local_api_client.dart';
 import 'package:test/expect.dart';
 import 'package:test/scaffolding.dart';
 
