@@ -1,5 +1,7 @@
 # Nature Remo API Client for Dart
 ![Dart CI](https://github.com/futabooo/nature-remo-dart/workflows/Dart%20CI/badge.svg)
+![Pub Version](https://img.shields.io/pub/v/nature_remo)
+
 
 ## Usage
 
