@@ -30,14 +30,11 @@ jobs:
   publish:
     needs: [tagpr]
     if: ${{ needs.tagpr.outputs.tag != '' }}
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
     permissions:
       id-token: write # Required for authentication using OIDC
     uses: dart-lang/setup-dart/.github/workflows/publish.yml@e630b99d28a3b71860378cafdc2a067c71107f94 # v1.7.0
     with:
       environment: pub.dev
-
 
   release:
     needs: [tagpr, publish]
