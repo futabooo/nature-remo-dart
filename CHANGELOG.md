@@ -1,3 +1,13 @@
+## [0.3.0](https://github.com/futabooo/nature-remo-dart/compare/0.2.0...0.3.0) - 2024-12-22
+- update devcontainer by @futabooo in https://github.com/futabooo/nature-remo-dart/pull/3
+- update dart version by @futabooo in https://github.com/futabooo/nature-remo-dart/pull/4
+- update http package by @futabooo in https://github.com/futabooo/nature-remo-dart/pull/5
+- example use local by @futabooo in https://github.com/futabooo/nature-remo-dart/pull/6
+- Configure Renovate by @renovate in https://github.com/futabooo/nature-remo-dart/pull/7
+- update by @futabooo in https://github.com/futabooo/nature-remo-dart/pull/12
+- add tgpr and publish pub.dev actions by @futabooo in https://github.com/futabooo/nature-remo-dart/pull/13
+- use github app token by @futabooo in https://github.com/futabooo/nature-remo-dart/pull/15
+
 ## 0.2.0
 - Add Local API Client.
 
