@@ -1,6 +1,6 @@
 name: nature_remo
 description: A Nature Remo Cloud And Local API Client that uses Nature API 1.0.0.
-version: 0.3.2
+version: 0.3.3
 homepage: https://github.com/futabooo/nature-remo-dart
 
 environment:

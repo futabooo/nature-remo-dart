@@ -1,3 +1,6 @@
+## [0.3.3](https://github.com/futabooo/nature-remo-dart/compare/0.3.2...0.3.3) - 2024-12-22
+- fix by @futabooo in https://github.com/futabooo/nature-remo-dart/pull/23
+
 ## [0.3.2](https://github.com/futabooo/nature-remo-dart/compare/0.3.1...0.3.2) - 2024-12-22
 - fix release action by @futabooo in https://github.com/futabooo/nature-remo-dart/pull/18
 - fix release action by @futabooo in https://github.com/futabooo/nature-remo-dart/pull/19
