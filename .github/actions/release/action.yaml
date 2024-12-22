@@ -28,7 +28,14 @@ runs:
     - name: Run tests
       run: dart test
 
-    - name: Release
+    - name: Publish to pub.dev
       uses: dart-lang/setup-dart/.github/workflows/publish.yml@e630b99d28a3b71860378cafdc2a067c71107f94 # v1.7.0
       with:
         environment: pub.dev
+    
+    - name: Create GitHub Release
+      uses: softprops/action-gh-release@7b4da11513bf3f43f9999e90eabced41ab8bb048 # v2.2.0
+      with:
+        body_path: CHANGELOG.md
+        tag_name: ${{ inputs.tag }}
+        token: ${{ inputs.github_token }}
