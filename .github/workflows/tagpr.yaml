@@ -1,5 +1,8 @@
 name: tagpr
 
+# 全てのactionsをGitHub Appのトークンで実行することでtagが打たれたことをトリガーとするアクションが実行されるようにする
+# tagprが作るPull Request上でtestのアクションを実行するだけならtagprのstepだけ違うトークンでも良い
+
 on:
   push:
     branches: ["main"]
@@ -14,13 +17,15 @@ jobs:
     outputs:
       tag: ${{ steps.tagpr.outputs.tag }}
     steps:
-      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
-
       - uses: actions/create-github-app-token@c1a285145b9d317df6ced56c09f525b5c2b6f755 # v1.11.1
         id: app-token
         with:
           app-id: ${{ vars.APP_ID }}
           private-key: ${{ secrets.PRIVATE_KEY }}
+
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          token: ${{ steps.app-token.outputs.token }}
 
       - uses: Songmu/tagpr@3dca11e7c0d68637ee212ddd35acc3d30a7403a4 # v1.5.0
         id: tagpr
