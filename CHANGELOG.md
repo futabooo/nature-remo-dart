@@ -1,3 +1,8 @@
+## [0.3.5](https://github.com/futabooo/nature-remo-dart/compare/0.3.4...0.3.5) - 2025-01-14
+- chore: fix create github release by @futabooo in https://github.com/futabooo/nature-remo-dart/pull/27
+- chore(deps): update softprops/action-gh-release action to v2.2.1 by @renovate in https://github.com/futabooo/nature-remo-dart/pull/31
+- chore(deps): update songmu/tagpr action to v1.5.1 by @renovate in https://github.com/futabooo/nature-remo-dart/pull/32
+
 ## [0.3.4](https://github.com/futabooo/nature-remo-dart/compare/0.3.3...0.3.4) - 2024-12-22
 - fix release action by @futabooo in https://github.com/futabooo/nature-remo-dart/pull/25
 
