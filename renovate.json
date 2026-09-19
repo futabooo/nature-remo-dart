@@ -1,6 +1,49 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": [
-    "config:recommended"
-  ]
+  "extends": ["config:best-practices"],
+  "timezone": "Asia/Tokyo",
+  "labels": ["dependencies"],
+  "schedule": ["before 9am on friday"],
+  "minimumReleaseAge": "7 days",
+  "packageRules": [
+    {
+      "groupName": "cloudflare",
+      "matchPackageNames": ["wrangler", "@cloudflare/**"]
+    },
+    {
+      "groupName": "hono",
+      "matchPackageNames": ["hono", "honox", "@hono/**"]
+    },
+    {
+      "groupName": "drizzle",
+      "matchPackageNames": ["drizzle-orm", "drizzle-kit"]
+    },
+    {
+      "groupName": "testing",
+      "matchPackageNames": [
+        "vitest",
+        "@vitest/**",
+        "@playwright/test",
+        "@axe-core/playwright"
+      ]
+    },
+    {
+      "groupName": "vite",
+      "matchPackageNames": ["vite", "@vitejs/**"]
+    },
+    {
+      "description": "1.0.0 以上の minor / patch は CI 通過後に automerge する。0.x は breaking change を含み得るので対象外",
+      "matchUpdateTypes": ["minor", "patch"],
+      "matchCurrentVersion": "!/^0/",
+      "automerge": true,
+      "automergeType": "pr",
+      "platformAutomerge": true
+    }
+  ],
+  "vulnerabilityAlerts": {
+    "enabled": true,
+    "labels": ["dependencies", "security"],
+    "minimumReleaseAge": "0 days",
+    "schedule": ["at any time"]
+  }
 }
