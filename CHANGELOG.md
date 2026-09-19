@@ -1,3 +1,26 @@
+## [0.4.1](https://github.com/futabooo/nature-remo-dart/compare/0.4.0...0.4.1) - 2026-09-19
+
+- chore(deps): update actions/checkout action to v5 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/46
+- chore(deps): update actions/create-github-app-token action to v2.1.1 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/44
+- chore(deps): update songmu/tagpr action to v1.9.0 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/47
+- chore(deps): update softprops/action-gh-release action to v2.3.3 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/48
+- chore(deps): update actions/create-github-app-token action to v2.1.4 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/50
+- chore(deps): update softprops/action-gh-release action to v2.5.0 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/51
+- chore(deps): update actions/checkout action to v6 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/53
+- chore(deps): update actions/create-github-app-token action to v2.2.1 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/54
+- chore(deps): update songmu/tagpr action to v1.11.0 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/55
+- chore(deps): update songmu/tagpr action to v1.16.0 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/56
+- chore(deps): update actions/checkout action to v6.0.2 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/57
+- chore(deps): update songmu/tagpr action to v1.17.0 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/58
+- chore(deps): update softprops/action-gh-release action to v3 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/66
+- chore(deps): update actions/checkout action to v7 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/64
+- chore(deps): update songmu/tagpr action to v1.20.3 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/63
+- chore(deps): update actions/create-github-app-token action to v2.2.2 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/59
+- chore(deps): update dart-lang/setup-dart action to v1.8.1 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/61
+- chore(deps): update actions/create-github-app-token action to v3 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/65
+- renovate.json を github-repo-settings から同期する by @futabooo-github-repo-settings[bot] in https://github.com/futabooo/nature-remo-dart/pull/68
+- chore(deps): update dart docker tag to v3.12 by @renovate[bot] in https://github.com/futabooo/nature-remo-dart/pull/43
+
 ## [0.4.0](https://github.com/futabooo/nature-remo-dart/compare/0.3.4...0.4.0) - 2025-07-05
 - chore: fix create github release by @futabooo in https://github.com/futabooo/nature-remo-dart/pull/27
 - chore(deps): update softprops/action-gh-release action to v2.2.1 by @renovate in https://github.com/futabooo/nature-remo-dart/pull/31
