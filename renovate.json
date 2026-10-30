@@ -38,6 +38,11 @@
       "automerge": true,
       "automergeType": "pr",
       "platformAutomerge": true
+    },
+    {
+      "description": "CI 系の更新はライブラリ利用者に関係ないので ci ラベルを付けてリリースノートから除外する (.github/release.yml)",
+      "matchManagers": ["github-actions", "dockerfile", "devcontainer"],
+      "addLabels": ["ci"]
     }
   ],
   "vulnerabilityAlerts": {
