@@ -6,6 +6,15 @@ name: tagpr
 on:
   push:
     branches: ["main"]
+    # ライブラリに関係ないファイルだけの変更では release PR を作らない。
+    # tagpr PR 自体のマージは pubspec.yaml と CHANGELOG.md を変えるので
+    # タグ付けのトリガーは従来どおり動く
+    paths-ignore:
+      - ".github/**"
+      - ".devcontainer/**"
+      - ".claude/**"
+      - "renovate.json"
+      - ".tool-versions"
 
 jobs:
   tagpr:
