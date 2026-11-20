@@ -1,5 +1,5 @@
 # Update VARIANT in devcontainer.json to pick a Dart version
-ARG VARIANT=3.12@sha256:5ac89dbcae4327278b257920e2786df0f22c87adc630017266b67cfcceef8348
+ARG VARIANT=3.13@sha256:854f3c50b1cbd4a5a54c9fa67d4f5b6702ac49b4a26d21a80e7712a72528b215
 FROM dart:${VARIANT}
 
 # Add bin location to path
